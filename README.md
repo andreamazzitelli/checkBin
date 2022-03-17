@@ -1,7 +1,5 @@
 <img src="Logo.png" width="200">
 
-# checkBin
-
 **Group Members:**
 
 - Alessandro Marzilli - [Linkedin Profile](https://www.linkedin.com/in/alessandro-marzilli-84a07a235/)
