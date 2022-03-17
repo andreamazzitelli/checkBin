@@ -1,5 +1,5 @@
-#checkBin
-###**Group Members:**
+# checkBin
+**Group Members:**
 
 - Alessandro Marzilli
 - Andrea Mazzitelli
