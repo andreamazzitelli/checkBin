@@ -1,5 +1,6 @@
-<img src="Logo.png" width="200" height="100">
-# checkBin
+<img src="Logo.png" width="200">
+
+#checkBin
 
 **Group Members:**
 
