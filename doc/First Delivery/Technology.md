@@ -14,14 +14,14 @@ The computation is carried both on the edge and in the cloud. Every board will c
 
 Every smart bin will have an identifier code to be identified, which is also linked to its position. It will be equipped with:
 
-**LoRaWAN compatible STM board***
+***LoRaWAN compatible STM board***
 STM32L0 Discovery kit LoRa, Sigfox, low-power wireless. The module is powered by an STM32L072CZ microcontroller and SX1276 transceiver. The transceiver features the LoRa long-range modem, providing ultra-long-range spread-spectrum communication and high interference immunity, minimizing current consumption.
 In the cities there should be some LoRaWAN gateways to pick up all the signals sent by the bins.
 We plan to use MQTT-SN as communication standard between the Smart bins and the LoRa gateway and MQTT as communication standard between the LoRa gateways and the Cloud provider.
 
 <img src="../../img/STM LoRa Board.jpg" width="500">
 
-***Ultrasonic sensors** to measure occupied volume in the bin.
+***Ultrasonic sensors*** to measure occupied volume in the bin.
 We use ultrasonic sensors as the main way of measuring the filling level of the bins.
 
 <img src="../../img/ultrasonicSensor.jpg" width="500">
