@@ -50,6 +50,6 @@ The ultrasonic sensor will be activated only when a change in the weight is dete
 The load cells will be always measuring weight changes
 LoRa antenna will be activated every hour to send to the cloud the current fill level
 
-***Network constraints***
+***Network***
 This architecture does not have any particular network constraint. We plan to update the data on the cloud every hour, so the expected latency can be also in the order of minutes. This choice has been made considering the nature of the system which does not always need real time updates.
 We’ll send to the cloud only the fill level of the bins, so the bandwidth needed by each device is minimal. Even though we take into account the great number of bins that even a small city has, the overall data transmitted is not much. Having planned a high update latency implies fewer usage of the radio that can be turned off saving energy.
