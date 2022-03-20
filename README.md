@@ -1,4 +1,4 @@
-<img src="Logo.png" width="200">
+<img src="img/Logo.png" width="200">
 
 **Group Members:**
 
