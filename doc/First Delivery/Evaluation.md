@@ -1,4 +1,4 @@
-### Evaluation
+# EVALUATION
 
 To evaluate the performance of the system we expect to measure several factors:
 - total energy consumption of the board, sensors and actuators
