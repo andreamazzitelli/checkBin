@@ -1,4 +1,12 @@
-### TECHNOLOGY
+# TECHNOLOGY
+
+### General Architecture
+
+<img src="../../img/generalArchitecture.png" width="500">
+
+### Bin Overview
+
+<img src="../../img/binOverview.png" width="500">
 
 Every smart bin will have an identifier code to be identified, which is also linked to its position. It will be equipped with:
 
