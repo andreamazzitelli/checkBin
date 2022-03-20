@@ -12,4 +12,4 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 
 ### Documents:
 ## First delivery:
-- [Concept](doc/First\\ Delivery/Concept.md)
+- [Concept](/doc/First%20Delivery/Concept.md)
