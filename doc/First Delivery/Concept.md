@@ -1,4 +1,4 @@
-### Concept
+# CONCEPT
 
 The main problem of waste management in big cities is overflowing bins. This brings to garbage left on the streets, bad smells, wild animals roaming and fed-up citizens. It is the consequence of an inefficient usage of the resources by garbage pickup companies, both economical and logistical (employees time and garbage trucks). As an example it happens that the usual pickup route empties not yet full bins missing the full ones.
 
