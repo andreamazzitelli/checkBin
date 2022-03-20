@@ -9,3 +9,7 @@
 ### Description of the Project:
 
 Today a big issue in many cities is garbage management, not only from an aesthetical point of view but also regarding administration and logistics costs. For this reason we envisioned a network of smart bins that monitor the fill level and give updates on their status. In this way the garbage pickup companies can have an overall view of the real-time situation and act accordingly. They could plan efficient pickup routes based on the fill level of the bins, manage the number of bins in each area and base their decisions on statistical analysis of provided data. As a consequence not only the company’s resources are used in a more efficient way but also the urban welfare increases thanks to less garbage on the streets and increased usability of the bins.
+
+### Documents:
+## First delivery:
+- [Concept](doc/First\ Delivery/Concept.md
