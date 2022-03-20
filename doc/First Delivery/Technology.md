@@ -1,6 +1,6 @@
 # TECHNOLOGY
 
-### General Architecture
+## General Architecture
 
 <img src="../../img/generalArchitecture.png" width="700">
 
@@ -8,7 +8,7 @@
 The computation is carried both on the edge and in the cloud. Every board will compute the fill level through the data coming in from the sensors and will send only this refined value to the cloud once every hour. The cloud will generate a dashboard with a map of the city combining the data received together with the database which links every bin identifier to its location. This dashboard will be publicly available through http both to the garbage collection company and to the citizens.
 
 
-### Bin Overview
+## Bin Overview
 
 <img src="../../img/binOverview.png" width="500">
 
@@ -40,7 +40,7 @@ The LCD Monitor will provide information about the fill level. It will also be u
 
 <img src="../../img/servoMotor.jpg" width="200">
 
-### Constraints
+## Constraints
 
 ***Battery and Energy Consumption***
 A major constraint that we have is energy consumption. We want to keep it as low as possible so that the battery can be changed a few times or none at all. During the development phase we’ll choose if we need to add some kind of solar cell or other type of charging methods. As an example we could experiment with some kind of fast charge while the trucks unload the bins. We will also carefully adjust the duty cycle to consume as little as possible, keeping in mind that:
