@@ -4,6 +4,10 @@
 
 <img src="../../img/generalArchitecture.png" width="500">
 
+***Computation***
+The computation is carried both on the edge and in the cloud. Every board will compute the fill level through the data coming in from the sensors and will send only this refined value to the cloud once every hour. The cloud will generate a dashboard with a map of the city combining the data received together with the database which links every bin identifier to its location. This dashboard will be publicly available through http both to the garbage collection company and to the citizens.
+
+
 ### Bin Overview
 
 <img src="../../img/binOverview.png" width="500">
@@ -47,6 +51,3 @@ LoRa antenna will be activated every hour to send to the cloud the current fill 
 ***Network constraints***
 This architecture does not have any particular network constraint. We plan to update the data on the cloud every hour, so the expected latency can be also in the order of minutes. This choice has been made considering the nature of the system which does not always need real time updates.
 We’ll send to the cloud only the fill level of the bins, so the bandwidth needed by each device is minimal. Even though we take into account the great number of bins that even a small city has, the overall data transmitted is not much. Having planned a high update latency implies fewer usage of the radio that can be turned off saving energy.
-
-***Computation***
-The computation is carried both on the edge and in the cloud. Every board will compute the fill level through the data coming in from the sensors and will send only this refined value to the cloud once every hour. The cloud will generate a dashboard with a map of the city combining the data received together with the database which links every bin identifier to its location. This dashboard will be publicly available through http both to the garbage collection company and to the citizens.
