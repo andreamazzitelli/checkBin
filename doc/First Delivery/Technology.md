@@ -12,7 +12,7 @@ The computation is carried both on the edge and in the cloud. Every board will c
 
 <img src="../../img/binOverview.png" width="500">
 
-Every smart bin will have an identifier code to be identified, which is also linked to its position. It will be equipped with:
+Every smart bin will have an id code to be identified, which is also linked to its position. It will be equipped with:
 
 ***LoRaWAN compatible STM board***
 STM32L0 Discovery kit LoRa, Sigfox, low-power wireless. The module is powered by an STM32L072CZ microcontroller and SX1276 transceiver. The transceiver features the LoRa long-range modem, providing ultra-long-range spread-spectrum communication and high interference immunity, minimizing current consumption.
