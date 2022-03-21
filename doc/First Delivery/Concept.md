@@ -7,9 +7,8 @@ Using this knowledge companies could plan efficient pickup routes based on the f
 
 <img src="../../img/concept.png" width="500">
 
-In this way the urban welfare increases thanks to less garbage on the streets and increased usability of the bins. Another result is an improvement on how the public perceives the garbage collection company and the city administration.
+In this way the urban welfare increases thanks to less garbage on the streets and increased usability of the bins. Another result is an improvement on how the public perceives the garbage collection company and the city administration. The flow of tourists to the city could be impacted by the usage of our system too, as a consequence of the improvement in the city reputation.
 
 An IoT solution is required due to the intrinsic nature of the considered environment: garbage bins are spread over large areas which would be otherwise impossible to monitor. Moreover this solution can also help detect unusual filling rates due to unpredictable events.
 
-To evaluate the social impact of this system we could measure the changes in the level of recycled waste as we expect an increase of the citizens' involvement and responsibility.
-The flow of tourists to the city could be also impacted by the usage of our system, as a consequence of the improvement in the city reputation.
+This system could be integrated in a urban regeneration plan for a smart city. It would be useful also to measure the change in the level of awareness of the population on ecological issues, measured as percentage of waste diverted from disposal to recycling facilities during several years, as we expect an increase of the citizens' involvement and responsibility.
