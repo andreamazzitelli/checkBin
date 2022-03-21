@@ -12,3 +12,4 @@ In this way the urban welfare increases thanks to less garbage on the streets an
 An IoT solution is required due to the intrinsic nature of the considered environment: garbage bins are spread over large areas which would be otherwise impossible to monitor. Moreover this solution can also help detect unusual filling rates due to unpredictable events.
 
 To evaluate the social impact of this system we could measure the changes in the level of recycled waste as we expect an increase of the citizens' involvement and responsibility.
+The flow of tourists to the city could be also impacted by the usage of our system, as a consequence of the improvement in the city reputation.
