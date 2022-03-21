@@ -1,6 +1,6 @@
 # CONCEPT
 
-The main problem of waste management in big cities is overflowing bins. This brings to garbage left on the streets, bad smells, wild animals roaming and fed-up citizens. It is the consequence of an inefficient usage of the resources by garbage pickup companies, both economical and logistical (employees time and garbage trucks). As an example it happens that the usual pickup route empties not yet full bins missing the full ones.
+The main problem of waste management in big cities is overflowing bins. This brings to garbage left on the streets, bad smells, wild animals roaming and fed up citizens. It is the consequence of an inefficient usage of the resources by garbage pickup companies, both economical and logistical (employees time and garbage trucks). As an example it happens that the usual pickup route empties not yet full bins missing the full ones.
 
 IoT could help solve this problem without having to hire new workers nor buying new trucks, which would generate more long term expenses for the company. Through a network of intelligent devices we can monitor the fill level of every trash bin and aggregate this data to generate a centralized and complete knowledge on the real time situation of the bins in the city.
 Using this knowledge companies could plan efficient pickup routes based on the fill level of the bins. They could also make statistical analysis on the collected data to tailor the number of bins in each area according to the real needs.
