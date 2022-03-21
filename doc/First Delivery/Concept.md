@@ -11,4 +11,4 @@ In this way the urban welfare increases thanks to less garbage on the streets an
 
 An IoT solution is required due to the intrinsic nature of the considered environment: garbage bins are spread over large areas which would be otherwise impossible to monitor. Moreover this solution can also help detect unusual filling rates due to unpredictable events.
 
-This system could be integrated in a urban regeneration plan for a smart city. It would be useful also to measure the change in the level of awareness of the population on ecological issues, measured as percentage of waste diverted from disposal to recycling facilities during several years, as we expect an increase of the citizens' involvement and responsibility.
+This system could be integrated in a urban regeneration plan for a smart city. It would be useful also to measure the change in the level of awareness of the population on ecological issues, measured as percentage of waste diverted from disposal to recycling facilities during several years or in several places, as we expect an increase of the citizens' involvement and responsibility.
