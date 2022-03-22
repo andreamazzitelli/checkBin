@@ -44,11 +44,11 @@ The LCD Monitor will provide information about the fill level. It will also be u
 
 ***Battery and Energy Consumption***
 A major constraint that we have is energy consumption. We want to keep it as low as possible so that the battery can be changed a few times or none at all. During the development phase we’ll choose if we need to add some kind of solar cell or other type of charging methods. As an example we could experiment with some kind of fast charge while the trucks unload the bins. We will also carefully adjust the duty cycle to consume as little as possible, keeping in mind that:
-The LCD screen will be always on and will be updated at every change of the weight
-The servo motor will be activated only when the bin is full or recently emptied
-The ultrasonic sensor will be activated only when a change in the weight is detected
-The load cells will be always measuring weight changes
-LoRa antenna will be activated every hour to send to the cloud the current fill level
+- The LCD screen will be always on and will be updated at every change of the weight
+- The servo motor will be activated only when the bin is full or recently emptied
+- The ultrasonic sensor will be activated only when a change in the weight is detected
+- The load cells will be always measuring weight changes
+- LoRa antenna will be activated every hour to send to the cloud the current fill level
 
 ***Network***
 This architecture does not have any particular network constraint. We plan to update the data on the cloud every hour, so the expected latency can be also in the order of minutes. This choice has been made considering the nature of the system which does not always need real time updates.
