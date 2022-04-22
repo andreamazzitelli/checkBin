@@ -6,7 +6,6 @@
 #include "cpu.h"
 #include "board.h"
 #include "periph/pwm.h"
-#include "servo.h"
 #include "fmt.h"
 #include "net/loramac.h"
 #include "semtech_loramac.h"
@@ -21,26 +20,23 @@
 #define DEVEUI "70B3D57ED004E9C9"
 #define APPKEY "ACF56E9005262992A0D06E5C42192FD7"
 
-//pins ultrasonic sensor
-gpio_t trigger_pin = GPIO_PIN(PORT_A, 9); //D8 -> trigger
-gpio_t echo_pin = GPIO_PIN(PORT_A, 8); //D7 -> echo
-
-//pins load cell
-gpio_t sck = GPIO_PIN(PORT_B, 13); //vicino D4
-gpio_t dt = GPIO_PIN(PORT_B, 14); //vicino D5
-
-//servo
-#define DEV         PWM_DEV(0) //vicino 5V
-#define CHANNEL     0
-#define SERVO_MIN        (1000U)
-#define SERVO_MAX        (2000U)
-static servo_t servo;
-
 //ultrasonic sensor
+gpio_t trigger_pin = GPIO_PIN(PORT_A, 9); //D8 -> trigger
+gpio_t echo_pin = GPIO_PIN(PORT_B, 12); //D9 -> echo
 uint32_t echo_time;
 uint32_t echo_time_start;
 
-//LCD
+//load cell
+gpio_t sck = GPIO_PIN(PORT_B, 14); //D12
+gpio_t dt = GPIO_PIN(PORT_B, 15); //D11
+
+//pins stepper motor
+gpio_t pin_step_1 = GPIO_PIN(PORT_B, 5); //D4 -> IN1
+gpio_t pin_step_2 = GPIO_PIN(PORT_B, 7); //D5 -> IN2
+gpio_t pin_step_3 = GPIO_PIN(PORT_B, 2); //D6 -> IN3
+gpio_t pin_step_4 = GPIO_PIN(PORT_B, 8); //D7 -> IN4
+
+//LCD pin SDA D14 and SCK D15
 #define TEST_OUTPUT_I2C 4
 u8g2_t u8g2;
 
@@ -71,13 +67,51 @@ int read_distance(void){ //ultrasonic sensor
 	return echo_time;
 }
 
-void set_servo(int flag){
-    if (flag==0){
-        servo_set(&servo, SERVO_MAX);
+void set_stepper(int flag){ //stepper motor
+    int steps = 0;
+    int count = 500;
+    while (count) {
+        switch(steps) {
+            case 0:
+            gpio_clear(pin_step_1);
+            gpio_clear(pin_step_2);
+            gpio_clear(pin_step_3);
+            gpio_set(pin_step_4);
+            break;
+            case 1:
+            gpio_clear(pin_step_1);
+            gpio_clear(pin_step_2);
+            gpio_set(pin_step_3);
+            gpio_clear(pin_step_4);
+            break;
+            case 2:
+            gpio_clear(pin_step_1);
+            gpio_set(pin_step_2);
+            gpio_clear(pin_step_3);
+            gpio_clear(pin_step_4);
+            break;
+            case 3:
+            gpio_set(pin_step_1);
+            gpio_clear(pin_step_2);
+            gpio_clear(pin_step_3);
+            gpio_clear(pin_step_4);
+            break;
+        } 
+        steps=steps+flag;
+        xtimer_msleep(2);
+        if (steps>3){
+            steps=0;
+        }
+        if (steps<0){
+            steps=3;
+        }
+        count--;
     }
-    if (flag==1){
-        servo_set(&servo, SERVO_MIN);
-    }
+    gpio_clear(pin_step_1);
+    gpio_clear(pin_step_2);
+    gpio_clear(pin_step_3);
+    gpio_clear(pin_step_4);
+
 }
 
 unsigned long read_weight(void){ //load cell
@@ -204,10 +238,12 @@ void components_init(void){
 
     read_distance();
 
-    servo_init(&servo, DEV, CHANNEL, SERVO_MIN, SERVO_MAX);
+    gpio_init(pin_step_1, GPIO_OUT);
+    gpio_init(pin_step_2, GPIO_OUT);
+    gpio_init(pin_step_3, GPIO_OUT);
+    gpio_init(pin_step_4, GPIO_OUT);
 
     TEST_DISPLAY(&u8g2, U8G2_R0, u8x8_byte_hw_i2c_riotos, u8x8_gpio_and_delay_riotos);
-
     u8x8_riotos_t user_data =
     {
         .device_index = TEST_I2C,
@@ -215,7 +251,6 @@ void components_init(void){
         .pin_dc = TEST_PIN_DC,
         .pin_reset = TEST_PIN_RESET,
     };
-
     u8g2_SetUserPtr(&u8g2, &user_data);
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
@@ -236,8 +271,8 @@ int main(void){
     char *message = "test";
     loramac_send(message);
 
-    set_servo(0); //chiudi
-    set_servo(1); //apri
+    set_stepper(1); //chiudi
+    set_stepper(-1); //apri
 
     int distance = read_distance();
 
