@@ -19,7 +19,6 @@ USEMODULE += fmt
 USEMODULE += periph_gpio
 USEMODULE += xtimer
 USEMODULE += periph_gpio_irq
-USEMODULE += servo
 USEMODULE += hd44780
 
 FEATURES_OPTIONAL += periph_eeprom
