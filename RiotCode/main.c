@@ -275,9 +275,11 @@ int main(void){
     set_stepper(-1); //apri
 
     int distance = read_distance();
+    printf("%d", distance);
 
     unsigned long weight = read_weight();
-
+    printf("%lu", weight);
+    
     write_lcd("0 - 100");
 
 }
