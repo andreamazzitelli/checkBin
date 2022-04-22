@@ -7,8 +7,6 @@
 #include "board.h"
 #include "periph/pwm.h"
 #include "servo.h"
-#include "hd44780.h"
-#include "hd44780_params.h"
 #include "fmt.h"
 #include "net/loramac.h"
 #include "semtech_loramac.h"
@@ -37,10 +35,12 @@ static servo_t servo;
 uint32_t echo_time;
 uint32_t echo_time_start;
 
-//LCD
-hd44780_t dev;
+/*LCD
+#include "hd44780.h"
+#include "hd44780_params.h"
 
-/* PINS LCD
+hd44780_t dev;
+PINS LCD
 Pin 1 is connected directly to GND.
 Pin 2 is connected directly to VCC +5V.
 Pin 3 is used to set LCD contrast, for max use +5V or a 10k potentiometer.
@@ -55,6 +55,15 @@ Pin 14 on the LCD is connected to pin 7 on the Arduino.
 Pin 15 is connected to one end of a 1k resistor, and its other end to VCC +5V.
 Pin 16 is connected directly to GND.
 */
+
+//LCD
+#define TEST_OUTPUT_I2C 4
+#include "periph/i2c.h"
+#include "timex.h"
+#include "ztimer.h"
+#include "u8g2.h"
+#include "u8x8_riotos.h"
+u8g2_t u8g2;
 
 //LoRa
 extern semtech_loramac_t loramac;
@@ -111,6 +120,7 @@ unsigned long read_weight(void){ //load cell
     return val;
 }
 
+/*
 void write_lcd(char* message){
     hd44780_clear(&dev);
     hd44780_home(&dev);
@@ -118,6 +128,36 @@ void write_lcd(char* message){
     xtimer_sleep(1);
     hd44780_set_cursor(&dev, 0, 1);
     hd44780_print(&dev, message);
+}
+*/
+
+void write_lcd(char* message){
+
+    (void)message;
+
+    TEST_DISPLAY(&u8g2, U8G2_R0, u8x8_byte_hw_i2c_riotos, u8x8_gpio_and_delay_riotos);
+
+    u8x8_riotos_t user_data =
+    {
+        .device_index = TEST_I2C,
+        .pin_cs = TEST_PIN_CS,
+        .pin_dc = TEST_PIN_DC,
+        .pin_reset = TEST_PIN_RESET,
+    };
+
+    u8g2_SetUserPtr(&u8g2, &user_data);
+    u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
+    u8g2_InitDisplay(&u8g2);
+    u8g2_SetPowerSave(&u8g2, 0);
+    u8g2_FirstPage(&u8g2);
+
+    u8g2_SetDrawColor(&u8g2, 1);
+    u8g2_SetFont(&u8g2, u8g2_font_helvB12_tf);
+        
+    u8g2_DrawStr(&u8g2, 12, 22, "LCD screen");
+    
+    //u8g2_NextPage(&u8g2);
+
 }
 
 int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){
@@ -214,7 +254,9 @@ void components_init(void){
 
     servo_init(&servo, DEV, CHANNEL, SERVO_MIN, SERVO_MAX);
 
+/*
     hd44780_init(&dev, &hd44780_params[0]);
+*/
 
     char *deveui = DEVEUI;
     char *appeui = APPEUI;
@@ -225,6 +267,9 @@ void components_init(void){
 
 int main(void){
 
+    write_lcd("0 - 100");
+    xtimer_sleep(5);
+    
     components_init();
 
     char *message = "test";
