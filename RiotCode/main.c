@@ -5,7 +5,6 @@
 #include "thread.h"
 #include "cpu.h"
 #include "board.h"
-#include "periph/pwm.h"
 #include "fmt.h"
 #include "net/loramac.h"
 #include "semtech_loramac.h"
