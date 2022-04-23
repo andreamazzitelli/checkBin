@@ -33,7 +33,7 @@ gpio_t dt = GPIO_PIN(PORT_B, 15); //D11
 gpio_t pin_step_1 = GPIO_PIN(PORT_B, 5); //D4 -> IN1
 gpio_t pin_step_2 = GPIO_PIN(PORT_B, 7); //D5 -> IN2
 gpio_t pin_step_3 = GPIO_PIN(PORT_B, 2); //D6 -> IN3
-gpio_t pin_step_4 = GPIO_PIN(PORT_B, 8); //D7 -> IN4
+gpio_t pin_step_4 = GPIO_PIN(PORT_A, 8); //D7 -> IN4
 
 //LCD pin SDA D14 and SCK D15
 #define TEST_OUTPUT_I2C 4
@@ -255,7 +255,6 @@ void components_init(void){
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
-
 
     char *deveui = DEVEUI;
     char *appeui = APPEUI;
