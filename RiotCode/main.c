@@ -14,7 +14,7 @@
 #include "u8g2.h"
 #include "u8x8_riotos.h"
 #include "main.h"
-//ciao
+//ciao skldnasc
 #define APPEUI "0000000000000000"
 #define DEVEUI "70B3D57ED004E9C9"
 #define APPKEY "ACF56E9005262992A0D06E5C42192FD7"
