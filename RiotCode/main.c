@@ -270,16 +270,25 @@ int main(void){
     char *message = "test";
     loramac_send(message);
 
-    set_stepper(1); //chiudi
-    set_stepper(-1); //apri
+    char msg[4];
+    int cycle=0;
 
-    int distance = read_distance();
-    printf("%d\n", distance);
+    while(true){
+        set_stepper(1); //chiudi
+        set_stepper(-1); //apri
 
-    unsigned long weight = read_weight();
-    printf("%lu\n", weight);
+        int distance = read_distance();
+        printf("%d\n", distance);
 
-    write_lcd("0 - 100");
+        unsigned long weight = read_weight();
+        printf("%lu\n", weight);
+
+        sprintf(msg, "%d", cycle);
+        write_lcd(msg);
+        cycle++;
+
+        xtimer_sleep(1);
+    }
 
     return 0;
 }
