@@ -39,6 +39,13 @@ gpio_t pin_step_4 = GPIO_PIN(PORT_B, 8); //D7 -> IN4
 //LCD pin SDA D14 and SCK D15
 #define TEST_OUTPUT_I2C 4
 u8g2_t u8g2;
+u8x8_riotos_t user_data =
+{
+    .device_index = TEST_I2C,
+    .pin_cs = TEST_PIN_CS,
+    .pin_dc = TEST_PIN_DC,
+    .pin_reset = TEST_PIN_RESET,
+};
 
 //LoRa
 extern semtech_loramac_t loramac;
@@ -164,6 +171,7 @@ int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){
     semtech_loramac_set_dr(&loramac, dr);
 
     join_type = LORAMAC_JOIN_OTAA;
+
     semtech_loramac_join(&loramac, join_type);
     /*
     switch (semtech_loramac_join(&loramac, join_type))
@@ -244,13 +252,6 @@ void components_init(void){
     gpio_init(pin_step_4, GPIO_OUT);
 
     TEST_DISPLAY(&u8g2, U8G2_R0, u8x8_byte_hw_i2c_riotos, u8x8_gpio_and_delay_riotos);
-    u8x8_riotos_t user_data =
-    {
-        .device_index = TEST_I2C,
-        .pin_cs = TEST_PIN_CS,
-        .pin_dc = TEST_PIN_DC,
-        .pin_reset = TEST_PIN_RESET,
-    };
     u8g2_SetUserPtr(&u8g2, &user_data);
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
@@ -275,11 +276,12 @@ int main(void){
     set_stepper(-1); //apri
 
     int distance = read_distance();
-    printf("%d", distance);
+    printf("%d\n", distance);
 
     unsigned long weight = read_weight();
-    printf("%lu", weight);
-    
+    printf("%lu\n", weight);
+
     write_lcd("0 - 100");
 
+    return 0;
 }
