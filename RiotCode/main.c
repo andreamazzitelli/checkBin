@@ -15,9 +15,51 @@
 #include "u8x8_riotos.h"
 #include "main.h"
 
-#define APPEUI "0000000000000000"
-#define DEVEUI "70B3D57ED004E9C9"
-#define APPKEY "ACF56E9005262992A0D06E5C42192FD7"
+#define TIMEOUT 3600
+#define ZERO_LOAD_CELL 8498
+
+//Specific weights g/m3
+#define SW_PLASTIC 25000
+#define SW_METAL 100000
+#define SW_GLASS 200000
+#define SW_PAPER 200000
+#define SW_FOOD 250000
+#define SW_MIXED 85000
+
+#ifndef WASTE_TYPE
+#define SW SW_MIXED
+#elif WASTE_TYPE == "PLASTIC"
+#define SW SW_PLASTIC
+#elif WASTE_TYPE == "METAL"
+#define SW SW_METAL
+#elif WASTE_TYPE == "GLASS"
+#define SW SW_GLASS
+#elif WASTE_TYPE == "PAPER"
+#define SW SW_PAPER
+#elif WASTE_TYPE == "FOOD"
+#define SW SW_FOOD
+#elif WASTE_TYPE == "MIXED"
+#define SW SW_MIXED
+#endif
+
+#ifndef BIN_ID
+#error "MISSING BIN ID"
+#endif
+#ifndef DEVEUI
+#error "MISSING LoRa DEVEUI"
+#endif
+#ifndef APPEUI
+#error "MISSING LoRa APPEUI"
+#endif
+#ifndef APPKEY
+#error "MISSING LoRa APPKEY"
+#endif
+#ifndef MAX_DISTANCE
+#error "MISSING Max_Distance"
+#endif
+#ifndef AREA
+#error "MISSING Area"
+#endif
 
 //ultrasonic sensor
 gpio_t trigger_pin = GPIO_PIN(PORT_A, 9); //D8 -> trigger
@@ -29,15 +71,13 @@ uint32_t echo_time_start;
 gpio_t sck = GPIO_PIN(PORT_B, 14); //D12 -> SCK
 gpio_t dt = GPIO_PIN(PORT_B, 15); //D11 -> DT
 
-//pins stepper motor
+//stepper motor
 gpio_t pin_step_1 = GPIO_PIN(PORT_B, 5); //D4 -> IN1
 gpio_t pin_step_2 = GPIO_PIN(PORT_B, 7); //D5 -> IN2
-gpio_t pin_step_3 = GPIO_PIN(PORT_B, 2); //D6 -> IN3
+gpio_t pin_step_3 = GPIO_PIN(PORT_B, 13); //D3 -> IN3
 gpio_t pin_step_4 = GPIO_PIN(PORT_A, 8); //D7 -> IN4
 
-//LCD pin SDA D14 and SCK D15
-//D15 -> SCK
-//D14 -> SDA
+//display pin SDA D14 and SCK D15
 #define TEST_OUTPUT_I2C 4
 u8g2_t u8g2;
 u8x8_riotos_t user_data =
@@ -138,11 +178,13 @@ unsigned long read_weight(void){ //load cell
     xtimer_usleep(20);
     val = val ^ 0x800000;
     gpio_clear(sck);
-    return val;
+    int grams = (ZERO_LOAD_CELL-(val/1000))/0.104;
+    if (grams<=0) return 0;
+    else return grams;
 }
 
 
-void write_lcd(char* message){
+void write_oled(char* message){ //Display
 
     u8g2_FirstPage(&u8g2);
 
@@ -154,7 +196,7 @@ void write_lcd(char* message){
 
 }
 
-int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){
+int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){ //LoRa setup
     uint8_t deveui[LORAMAC_DEVEUI_LEN];
     uint8_t appeui[LORAMAC_APPEUI_LEN];
     uint8_t appkey[LORAMAC_APPKEY_LEN];
@@ -200,7 +242,7 @@ int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){
     return 0;
 }
 
-int loramac_send(char *message){
+int loramac_send(char *message){ //LoRa send
     uint8_t cnf = CONFIG_LORAMAC_DEFAULT_TX_MODE;
     uint8_t port = CONFIG_LORAMAC_DEFAULT_TX_PORT;
 
@@ -238,7 +280,7 @@ int loramac_send(char *message){
     return 0;
 }
 
-void components_init(void){
+void components_init(void){ //initialize all pins and components
     gpio_init(sck, GPIO_OUT);
     gpio_init(dt, GPIO_IN);
 
@@ -268,28 +310,87 @@ void components_init(void){
 int main(void){
     
     components_init();
+    int distance_1;
+    int distance_2;
+    int distance_3;
+    int distance;
+    int fill_level;
+    unsigned long weight;
+    int estimated_weight;
+    float max_weight = AREA*MAX_DISTANCE*0.01*SW;
+    int old_fill_level;
+    char st_fill[2];
+    char msg[8];
+    int stepper_status=0; //0 open, 1 closed
 
-    char *message = "test";
-    loramac_send(message);
+    while (true){
+        int distance_1 = read_distance();
+        xtimer_sleep(30);
+        int distance_2 = read_distance();
+        xtimer_sleep(30);
+        int distance_3 = read_distance();
 
-    char msg[4];
-    int cycle=0;
+        if (distance_1-distance_2<3 && distance_2-distance_1<3){
+            distance=distance_1;
+        }
+        else if(distance_2-distance_3<3 && distance_3-distance_2<3){
+            distance=distance_2;
+        }
+        else if(distance_1-distance_3<3 && distance_3-distance_1<3){
+            distance=distance_3;
+        }
+        
+        if (distance>=MAX_DISTANCE){
+            distance=MAX_DISTANCE-1;
+        }
 
-    while(true){
-        set_stepper(1); //chiudi
-        set_stepper(-1); //apri
+        old_fill_level = fill_level;
+        fill_level = 9-(10*distance/MAX_DISTANCE);
 
-        int distance = read_distance();
-        printf("%d\n", distance);
+        weight = read_weight();
 
-        unsigned long weight = read_weight();
-        printf("%lu\n", weight);
+        estimated_weight = (MAX_DISTANCE-distance)*0.01*AREA*SW;
+        
+        if (weight>(1.2*max_weight) && fill_level<8){ //leave the bin open and set fill level to 9 (20% margin)
+            if (stepper_status==1){
+                set_stepper(-1);
+                stepper_status=0;
+            }
+            sprintf(st_fill, "%d", 9);
+            loramac_send(st_fill);
+            puts("1. weight exceed but fill level low");
+        }
+        else if (old_fill_level!=fill_level){
+            sprintf(st_fill, "%d", fill_level);
+            loramac_send(st_fill);
 
-        sprintf(msg, "%d", cycle);
-        write_lcd(msg);
-        cycle++;
+            sprintf(msg, "Fill: %d", fill_level);
+            write_oled(msg);
 
-        xtimer_sleep(1);
+            puts("2. fill level changed");
+
+            if (fill_level>=8 && weight<(0.8*estimated_weight)){ //leave the bin open (20% margin)
+                if (stepper_status==1){
+                    set_stepper(-1);
+                    stepper_status=0;
+                }
+                puts("3. weight low but fill level high");
+            }
+            else if (fill_level>=8){ //close the bin
+                if (stepper_status==0){
+                    set_stepper(1);
+                    stepper_status=1;
+                }
+                puts("4. fill level high");
+            }
+            else if (stepper_status==1){
+                puts("5. open");
+                set_stepper(-1);
+                stepper_status=0;
+            }
+        }
+
+        xtimer_sleep(TIMEOUT);
     }
 
     return 0;

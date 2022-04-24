@@ -3,9 +3,9 @@
 
 void echo_cb(void* arg);
 int read_distance(void);
-void set_tepper(int flag);
+void set_stepper(int flag);
 unsigned long read_weight(void);
-void write_lcd(char* message);
+void write_oled(char* message);
 int loramac_setup(char *deui, char *aeui, char *akey, char *xdr);
 int loramac_send(char *message);
 void components_init(void);
