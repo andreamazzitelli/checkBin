@@ -26,8 +26,8 @@ uint32_t echo_time;
 uint32_t echo_time_start;
 
 //load cell
-gpio_t sck = GPIO_PIN(PORT_B, 14); //D12
-gpio_t dt = GPIO_PIN(PORT_B, 15); //D11
+gpio_t sck = GPIO_PIN(PORT_B, 14); //D12 -> SCK
+gpio_t dt = GPIO_PIN(PORT_B, 15); //D11 -> DT
 
 //pins stepper motor
 gpio_t pin_step_1 = GPIO_PIN(PORT_B, 5); //D4 -> IN1
@@ -36,6 +36,8 @@ gpio_t pin_step_3 = GPIO_PIN(PORT_B, 2); //D6 -> IN3
 gpio_t pin_step_4 = GPIO_PIN(PORT_A, 8); //D7 -> IN4
 
 //LCD pin SDA D14 and SCK D15
+//D15 -> SCK
+//D14 -> SDA
 #define TEST_OUTPUT_I2C 4
 u8g2_t u8g2;
 u8x8_riotos_t user_data =
@@ -70,7 +72,7 @@ int read_distance(void){ //ultrasonic sensor
 	xtimer_usleep(20);
 	gpio_set(trigger_pin);
 	xtimer_msleep(100);
-	return echo_time;
+	return echo_time/58;
 }
 
 void set_stepper(int flag){ //stepper motor
