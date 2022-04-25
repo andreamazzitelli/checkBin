@@ -104,6 +104,7 @@ In particular, the js code does the following:
 - it calls the Google Maps API to retrieve the map;
 - it calls the Lambda function “getBin” using the “Function URL” that returns all the tuples inside “bin_table” ([here](https://docs.aws.amazon.com/lambda/latest/dg/lambda-urls.html) there is a description of what is a function URL);
 - once the data arrives, for every bin the script adds a clickable marker containing all the info about the bin with a different color depending on the fill level. 
+
 From the web interface the user can also add a new bin to the system by filling the latitude and longitude fields and clicking on the “Add Bin” button. It calls the function URL of the “addBin” Lambda Function that creates a new tuple in “bin_table” and returns to the user the new bin id.
 
 All the data stored in the database can also be reached via a REST API, to ease the integration with pre-existing management systems of the garbage pickup companies. You can call it from [here](https://slfosy6btrlq2u2xufldfoy5fi0reboc.lambda-url.us-east-1.on.aws/).
