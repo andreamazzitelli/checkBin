@@ -10,7 +10,7 @@ int loramac_setup(char *deui, char *aeui, char *akey, char *xdr);
 int loramac_send(char *message);
 void components_init(void);
 
-//define WASTE_TYPE = PLASTIC | METAL | GLASS | PAPER | FOOD | MIXED
+//define WASTE_TYPE = PLASTIC 0 | METAL 1 | GLASS 2 | PAPER 3 | FOOD 4 | MIXED 5
 #define WASTE_TYPE "MIXED"
 //define LoRa configuration parameters
 #define DEVEUI "70B3D57ED004E9C9"
@@ -23,11 +23,11 @@ void components_init(void);
 //define area in square meters
 #define AREA 0.05
 
-#define WASTE_TYPE_PLASTIC "PLASTIC"
-#define WASTE_TYPE_METAL "METAL"
-#define WASTE_TYPE_GLASS "GLASS"
-#define WASTE_TYPE_PAPER "PAPER"
-#define WASTE_TYPE_FOOD "FOOD"
-#define WASTE_TYPE_MIXED "MIXED"
+#define WASTE_TYPE_PLASTIC 0
+#define WASTE_TYPE_METAL 1
+#define WASTE_TYPE_GLASS 2
+#define WASTE_TYPE_PAPER 3
+#define WASTE_TYPE_FOOD 4
+#define WASTE_TYPE_MIXED 5
 
 #endif
