@@ -86,6 +86,12 @@ Another solution is to add more ultrasonic sensors to the system; this solution 
 This architecture does not have any particular network constraint. We plan to update the data on the cloud either when the fill level changes or when an anomaly is detected by the load cell. This choice has been made considering the nature of the system which only needs to know the last measured fill level.
 We’ll send to the cloud only the fill level of the bin and its identifier, so the bandwidth needed by each device is minimal. Even though we take into account the great number of bins that even a small city has, the payload transmitted by each one is less than 10 bytes every time the fill level changes (it should be no more than 10 times between two bin unloadings). Having planned a high update latency implies fewer usage of the radio that can be turned off during sleep times saving energy.
 
+We ruled out every kind of communication directed to the board as it would need the radio always on. We couldn’t afford that in developing a battery powered device that needs to be up for at least a year without a constant power supply.
+<br> We also considered structuring the network as a mesh to avoid the need of developing a gateway infrastructure. However, this approach would also require the radio to be always on but, as stated before, we cannot afford that.
+<br> Different solutions must be researched to have a gateway infrastructure available. The garbage pickup company could develop its own infrastructure or it could use an existing infrastructure provided by some third party.
+
+LoRa has been chosen as communication protocol because of its low power consumption and long range. Its main constraint is the low bitrate but it is still suitable for our project. WiFi and Bluetooth could provide higher bitrate but lower range, which is not ideal for our system. 3G/4G/5G could also provide not only higher bitrate and high range, but also an existing and wide gateway infrastructure. The main drawback of these technologies is the power consumption which is higher than the one we can support.
+
 
 ## Cloud
 
