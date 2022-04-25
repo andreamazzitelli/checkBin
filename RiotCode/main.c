@@ -324,11 +324,11 @@ int main(void){
     int stepper_status=0; //0 open, 1 closed
 
     while (true){
-        int distance_1 = read_distance();
+        distance_1 = read_distance();
         xtimer_sleep(30);
-        int distance_2 = read_distance();
+        distance_2 = read_distance();
         xtimer_sleep(30);
-        int distance_3 = read_distance();
+        distance_3 = read_distance();
 
         if (distance_1-distance_2<3 && distance_2-distance_1<3){
             distance=distance_1;
