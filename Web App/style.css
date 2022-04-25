@@ -16,6 +16,12 @@ table {
     background: white;
     text-align: center;
 }
+input {
+    margin: 0.5%;
+}
+button {
+    margin: 1%;
+}
 
 #map {
     height: 98vh;
