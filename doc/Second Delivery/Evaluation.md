@@ -54,11 +54,14 @@ Accuracy of the fill level: 92.5%. We expect the accuracy to rise with a greater
 
 ## Network usage
 
-This architecture does not have any particular network constraint. We plan to send data to the cloud around 10 times every interval between two bin unloadings. This choice has been made considering the nature of the system which does not need real time updates. We’ll send to the cloud only the fill level of the bins and the bin identifier, so the bandwidth needed by each device is minimal.
+This architecture does not have any particular network constraint. As we planned to send data to the cloud only when the fill level changes or if there is an anomaly, the board should send around 10 messages every interval between two bin unloadings. This choice has been made considering the nature of the system which does not need real time updates.
+
+The great number of bins dislocated throughout the city should be supported by the gateway infrastructure.
 
 The latency measured using the prototype from the sensing to the update of the web dashboard is less than 2 seconds, which is more than enough for our use case.
-The size of the payload sent using LoRa to the cloud is less than 10bytes (1 for the fill level, 1 for the separator character and up to 8 for the bin identifier). We could also remove the bin identifier from the message, using the DEV_EUI assigned to the board as bin identifier.
 
+We’ll send to the cloud only the fill level of the bins and the bin identifier, so the bandwidth needed by each device is minimal. The size of the payload sent using LoRa to the cloud is less than 10bytes (1 for the fill level, 1 for the separator character and up to 8 for the bin identifier). To reduce the network usage we could also remove the bin identifier from the message, using the DEV_EUI assigned to the board as bin identifier.
 
+We plan to test the whole system using a simulated environment provided by IoT_LAB. In this way we will also analyze the scalability of our system.
 
 ### Link to previous version: [Evaluation - First delivery](../First%20Delivery/Evaluation.md)
