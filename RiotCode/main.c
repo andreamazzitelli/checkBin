@@ -15,7 +15,8 @@
 #include "u8x8_riotos.h"
 #include "main.h"
 
-#define TIMEOUT 3600
+#define CYCLE_TIMEOUT 10
+#define MEASURE_TIMEOUT 5
 #define ZERO_LOAD_CELL 8498
 
 //Specific weights g/m3
@@ -314,11 +315,11 @@ int main(void){
     int distance_2;
     int distance_3;
     int distance;
-    int fill_level;
+    int fill_level=0;
     unsigned long weight;
     int estimated_weight;
     float max_weight = AREA*MAX_DISTANCE*0.01*SW;
-    int old_fill_level=0;
+    int old_fill_level;
     char st_fill[2];
     char msg[8];
     int stepper_status=0; //0 open, 1 closed
@@ -327,9 +328,9 @@ int main(void){
         distance=0;
 
         distance_1 = read_distance();
-        xtimer_sleep(30);
+        xtimer_sleep(MEASURE_TIMEOUT);
         distance_2 = read_distance();
-        xtimer_sleep(30);
+        xtimer_sleep(MEASURE_TIMEOUT);
         distance_3 = read_distance();
 
         if (distance_1-distance_2<3 && distance_2-distance_1<3){
@@ -392,7 +393,7 @@ int main(void){
             }
         }
 
-        xtimer_sleep(TIMEOUT);
+        xtimer_sleep(CYCLE_TIMEOUT);
     }
 
     return 0;
