@@ -50,13 +50,23 @@ The OLED Display will provide information about the fill level as feedback to th
 
 <img src="../../img/step_motor.jpg" width="200">
 
-## Energy Consumption
-A major constraint that we have is energy consumption. We want the battery to last for at least a year. During the next development phase we’ll choose if we need to add some kind of solar cell or other type of charging methods. As an example we could experiment with some kind of fast charge while the trucks unload the bins. The duty cycle will be adjusted on the needs of the garbage pickup company. A more in depth look about this aspect can be seen in the evaluation document. During the development we set the interval at 1 hour.
-We also need to respect the constraints on how frequent the battery should be changed, keeping in mind that:
-- The OLED screen will be always on and will be updated at every change of the fill level
-- The servo motor will be activated only when the bin is full or recently emptied
-- The sensors will be activated at the predefined intervals. The ultrasonic sensor will take three measures with a 30 seconds interval, to discard eventual measures taken while the bin was open. The load cell will also be activated to read a value.
-- LoRa antenna will be activated when the fill level changes to send to the cloud the current fill level. It will also be activated when an anomaly is detected between the fill level measure taken by the ultrasonic and the weight measured by the load cell. In that case it will be used to notify the anomaly, sending the max fill level to the cloud to notify the bin must be emptied.
+
+## Logic
+The RIOT code implements the logical computation carried out in the LoRa board. In the main function it intializes the sensors, the actuators and the LoRa communication parameters.
+It then starts a loop which alternates an active phase and a sleeping phase.
+The fill level is measured in the following way:
+- the ultrasonic sensor makes three measurments with a 30 seconds timeout
+- among the three values it rules out eventual anomalies and choose the pertinent one
+- it then converts it to a fill level between 0 and 9 knowing the height of the bin
+- the load cell is used to get the weight of the trash inside the bin
+- based on the fill level and the type of garbage, it computes the estimated weight
+- it also computes the maximum weight based on the height of the bin, the base area and the type of garbage
+
+- if the fill level is lower than 8 but the weight is more than the maximum one (with a 20% margin) we have an anomaly; it sends to the cloud a fill level of 9 to notify the bin must be emptied but it does not close the bin.
+- else if the fill level has changed from the previous measurments it sends the fill level to the cloud and updates the value on the OLED display. Then it also checks:
+  - if the weight is below the estimated one (with a margin of 20%) when the fill level is greater or equal than 8; in that case it keeps the bin open
+  - else if the fill level is grater or equal than 8 and the weight is coherent, it closes the bin
+  - else it opens the bin
 
 ## Network
 
