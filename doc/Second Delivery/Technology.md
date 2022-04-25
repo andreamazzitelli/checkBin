@@ -32,7 +32,7 @@ We use ultrasonic sensors as the main way of measuring the fill level of the bin
 
 <img src="../../img/loadCell+Amplifier.jpg" width="200">
 
-To detect anomalies in the data read by ultrasonic sensors we use a load cell. Together with statistics based on gathered data we can compare the occupied volume in the bin and the weight to understand if there is an anomaly in the ultrasonic measure. When the weight is above the maximum threshold (with a 20% margin) the bin is set to be emptied but it is not closed. When the measured weight is below the estimated weight for the current fill level (with a 20% margin) the bin is not closed even if the fill level would imply so. To estimate the weight based on the ultrasonic measure and to estimate the maximum weight, the following parameters must be set in the main.h file: height of the bin in cm, base area of the bin in square meters, waste type (plastic, metal, glass, paper, food, mixed).
+To detect anomalies in the data read by ultrasonic sensors we use a load cell. Together with statistics based on gathered data we can compare the occupied volume in the bin and the weight to understand if there is an anomaly in the ultrasonic measure. To estimate the weight based on the ultrasonic measure and to estimate the maximum weight, the following parameters must be set in the main.h file: height of the bin in cm, base area of the bin in square meters, waste type (plastic, metal, glass, paper, food, mixed).
 
 To convert the value read from the load cell into grams we tested it using different weights. We then analyzed the measurements and discovered a linear pattern. Consequently to convert the value returned from the load cell we must subtract it from the base value (8500 in our case) and divide it by 0.104.
 
@@ -67,6 +67,15 @@ The fill level is measured in the following way:
   - if the weight is below the estimated one (with a margin of 20%) when the fill level is greater or equal than 8; in that case it keeps the bin open
   - else if the fill level is grater or equal than 8 and the weight is coherent, it closes the bin
   - else it opens the bin
+
+### Accuracy of the fill level
+The fill level is computed from the measures taken by the ultrasonic sensor. Its accuracy can be an issue since the sensor measures the distance of a small area of the bin.
+<br>As a consequence it could happen that in this area there is a lot of trash while the remaining space is empty. For this reason we decided to take into consideration also the weight measured through a load cell to implement a double check measure.
+<br>Indeed we verify if the real weight measured is similar to the estimated weight with a margin of 20 percent (computed by using the fill level of the bin, the base area and the waste type). This double check allows us to detect a mismatch between the two measurements and makes us aware of any anomaly in the system.
+- An anomaly is detected when the fill level is greater or equal than 8 and the weight is lower than the estimated one. We decided not to close the bin (since the bin could be not really full) while still sending the fill level to the cloud. Because of the mismatch between the measurements of the two sensors, we do not really know if the bin is actually full or not. Indeed we prefer to leave the bin open during an anomaly even if it is actually full instead of closing it while it is still empty.
+- Another anomaly could happen if the load cell returns a weight greater than the maximum one (with a margin of 20 percent) but the fill level is smaller than 8. Also in this case we decided to adopt the same policy as before, keeping the bin open and sending 9 as fill level to the cloud. In this way an operator will empty the bin and solve the anomaly.
+<br> Another solution is to add more ultrasonic sensors to the system; this solution would increase the cost in terms of power consumption but it would be more precise in detecting the fill level of the bin.
+
 
 ## Network
 
