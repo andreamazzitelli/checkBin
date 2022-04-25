@@ -5,19 +5,6 @@ BOARD ?= b-l072z-lrwan1
 RIOTBASE ?= $(CURDIR)/RIOT
 
 
-#define WASTE_TYPE = PLASTIC | METAL | GLASS | PAPER | FOOD | MIXED
-WASTE_TYPE = MIXED
-#define LoRa configuration parameters
-DEVEUI = 70B3D57ED004E9C9
-APPEUI = 0000000000000000
-APPKEY = ACF56E9005262992A0D06E5C42192FD7
-#define bin id
-BIN_ID = 0
-#define bin height
-MAX_DISTANCE = 45
-#define area in square meters
-AREA = 0.05
-
 LORA_DRIVER ?= sx1276
 LORA_REGION ?= EU868
 USEPKG += semtech-loramac
