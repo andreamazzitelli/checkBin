@@ -27,7 +27,6 @@ To allow the communication the following parameters must be set in the main.h fi
 We use ultrasonic sensors as the main way of measuring the fill level of the bins. In the prototype we used only one sensor but we decided to take three measures every time with a 30 seconds timeout. In this way we can discard measurements taken while the bin was open. Using more ultrasonic sensors would enhance the accuracy of the measures but implies a linear increase in the energy consumption of the sensors of the whole system.
 
 
-
 ***Load cells and a Load Cell Amplifier*** to measure the weight of the trash in the bin.
 
 <img src="../../img/loadCell+Amplifier.jpg" width="200">
@@ -54,7 +53,8 @@ The OLED Display will provide information about the fill level as feedback to th
 ## Logic
 The RIOT code implements the logical computation carried out in the LoRa board. In the main function it intializes the sensors, the actuators and the LoRa communication parameters.
 It then starts a loop which alternates an active phase and a sleeping phase.
-The fill level is measured in the following way:
+
+In the active phase the code does the following:
 - the ultrasonic sensor makes three measurments with a 30 seconds timeout
 - among the three values it rules out eventual anomalies and choose the pertinent one
 - it then converts it to a fill level between 0 and 9 knowing the height of the bin
@@ -72,9 +72,11 @@ The fill level is measured in the following way:
 The fill level is computed from the measures taken by the ultrasonic sensor. Its accuracy can be an issue since the sensor measures the distance of a small area of the bin.
 <br>As a consequence it could happen that in this area there is a lot of trash while the remaining space is empty. For this reason we decided to take into consideration also the weight measured through a load cell to implement a double check measure.
 <br>Indeed we verify if the real weight measured is similar to the estimated weight with a margin of 20 percent (computed by using the fill level of the bin, the base area and the waste type). This double check allows us to detect a mismatch between the two measurements and makes us aware of any anomaly in the system.
+
 - An anomaly is detected when the fill level is greater or equal than 8 and the weight is lower than the estimated one. We decided not to close the bin (since the bin could be not really full) while still sending the fill level to the cloud. Because of the mismatch between the measurements of the two sensors, we do not really know if the bin is actually full or not. Indeed we prefer to leave the bin open during an anomaly even if it is actually full instead of closing it while it is still empty.
 - Another anomaly could happen if the load cell returns a weight greater than the maximum one (with a margin of 20 percent) but the fill level is smaller than 8. Also in this case we decided to adopt the same policy as before, keeping the bin open and sending 9 as fill level to the cloud. In this way an operator will empty the bin and solve the anomaly.
-<br> Another solution is to add more ultrasonic sensors to the system; this solution would increase the cost in terms of power consumption but it would be more precise in detecting the fill level of the bin.
+
+Another solution is to add more ultrasonic sensors to the system; this solution would increase the cost in terms of power consumption but it would be more precise in detecting the fill level of the bin.
 
 
 ## Network
