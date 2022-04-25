@@ -318,12 +318,14 @@ int main(void){
     unsigned long weight;
     int estimated_weight;
     float max_weight = AREA*MAX_DISTANCE*0.01*SW;
-    int old_fill_level;
+    int old_fill_level=0;
     char st_fill[2];
     char msg[8];
     int stepper_status=0; //0 open, 1 closed
 
     while (true){
+        distance=0;
+
         distance_1 = read_distance();
         xtimer_sleep(30);
         distance_2 = read_distance();
