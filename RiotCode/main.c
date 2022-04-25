@@ -366,18 +366,18 @@ int main(void){
                 stepper_status=0;
             }
             sprintf(st_fill, "%d", 9);
-            loramac_send(st_fill);
+            loramac_send(BIN_ID+"|"+st_fill);
 
-            sprintf(msg, "Fill: %d", fill_level);
+            sprintf(msg, "Fill level: %d", fill_level);
             write_oled(msg);
-            
+
             puts("1. weight exceed but fill level low");
         }
         else if (old_fill_level!=fill_level){
             sprintf(st_fill, "%d", fill_level);
-            loramac_send(st_fill);
+            loramac_send(BIN_ID+"|"+st_fill);
 
-            sprintf(msg, "Fill: %d", fill_level);
+            sprintf(msg, "Fill level: %d", fill_level);
             write_oled(msg);
 
             puts("2. fill level changed");
