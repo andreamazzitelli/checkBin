@@ -1,0 +1,69 @@
+body {
+    overflow: hidden;
+    background: rgb(247, 249, 250);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+table {
+    margin: 5% auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    background: white;
+    text-align: center;
+}
+
+#map {
+    height: 98vh;
+    width: 75vw;
+    z-index: 0;
+    position: absolute;
+}
+
+#title {
+    height: 20vh;
+    width: 24.45vw;
+    z-index: 1;
+    top: 0px;
+    right: 0px;
+    position: absolute;
+    text-align: center;
+}
+
+#description {
+    height: 30vh;
+    width: 24.45vw;
+    z-index: 1;
+    top: 20vh;
+    right: 0px;
+    position: absolute;
+    text-align: center;
+}
+
+#form {
+    height: 51vh;
+    width: 24.45vw;
+    z-index: 1;
+    top: 50vh;
+    right: 0px;
+    position: absolute;
+    text-align: center;
+}
+
+#form form {
+    margin-top: 20%;
+}
+
+#repo {
+    bottom: 0%;
+    position: absolute;
+    left: 22%;
+}
+
+#legend {
+    border-bottom: 1px solid black;
+}

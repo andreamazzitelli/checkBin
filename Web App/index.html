@@ -1,0 +1,69 @@
+<head>
+    <title>checkBin</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="index.js"></script>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+    <div id="title">
+        <img src="https://raw.githubusercontent.com/andreamazzitelli/checkBin/main/img/Logo.png">
+    </div>
+    <div id="description">
+
+        <table>
+            <tbody>
+                <tr>
+                    <td id="legend">Legend</td>
+                </tr>
+                <tr>
+                    <td><img
+                            src="https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/red-pin-small.png?raw=true">
+                    </td>
+                    <td>Fill level between 8 and 10</td>
+                </tr>
+                <tr>
+                    <td><img
+                            src="https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/yellow-pin-small.png?raw=true">
+                    </td>
+                    <td>Fill level between 5 and 7</td>
+                </tr>
+                <tr>
+                    <td><img
+                            src="https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/green-pin-small.png?raw=true">
+                    </td>
+                    <td>Fill level between 0 and 4</td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            To add a new bin, fill the form with the coordinates and click on "Add Bin". <br>After a while will appear
+            the new bin's ID
+    </div>
+
+    <div id="form">
+        <form>
+            <input type="text" placeholder="Latitude" id="lat">
+            <div></div>
+            <input type="text" placeholder="Longitude" id="lng">
+            <div></div>
+            <button type="button"
+                onclick="addBin(document.getElementById('lat').value, document.getElementById('lng').value)">Add
+                Bin</button>
+        </form>
+        <p id="show"></p>
+        <p id="repo">
+            GitHub Repository: <a href="https://github.com/andreamazzitelli/checkBin" target="_blank">checkBin</a>
+        </p>
+    </div>
+
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&v=weekly"
+        defer></script>
+</body>
+
+</html>
