@@ -367,6 +367,10 @@ int main(void){
             }
             sprintf(st_fill, "%d", 9);
             loramac_send(st_fill);
+
+            sprintf(msg, "Fill: %d", fill_level);
+            write_oled(msg);
+            
             puts("1. weight exceed but fill level low");
         }
         else if (old_fill_level!=fill_level){
