@@ -15,8 +15,8 @@
 #include "u8x8_riotos.h"
 #include "main.h"
 
-#define CYCLE_TIMEOUT 10
-#define MEASURE_TIMEOUT 5
+#define CYCLE_TIMEOUT 5
+#define MEASURE_TIMEOUT 2
 #define ZERO_LOAD_CELL 8498
 
 //Specific weights g/m3
@@ -179,7 +179,11 @@ unsigned long read_weight(void){ //load cell
     xtimer_usleep(20);
     val = val ^ 0x800000;
     gpio_clear(sck);
-    int grams = (ZERO_LOAD_CELL-(val/1000))/0.104;
+    val=val/1000;
+    if (val>ZERO_LOAD_CELL){
+        val=ZERO_LOAD_CELL;
+    }
+    int grams = (ZERO_LOAD_CELL-val)/0.104;
     if (grams<=0) return 0;
     else return grams;
 }
@@ -353,6 +357,8 @@ int main(void){
         weight = read_weight();
 
         estimated_weight = (MAX_DISTANCE-distance)*0.01*AREA*SW;
+        
+        printf("distance: %d, weight: %lu, estimated_weigth: %d, fill_level: %d\n", distance, weight, estimated_weight, fill_level);
         
         if (weight>(1.2*max_weight) && fill_level<8){ //leave the bin open and set fill level to 9 (20% margin)
             if (stepper_status==1){
