@@ -12,6 +12,7 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 
 ## Documents:
 ### Second delivery:
+- [2nd Delivery](/doc/2ndDelivery.md)
 - [Concept](/doc/Second%20Delivery/Concept.md)
 - [Technology](/doc/Second%20Delivery/Technology.md)
 - [Evaluation](/doc/Second%20Delivery/Evaluation.md)
