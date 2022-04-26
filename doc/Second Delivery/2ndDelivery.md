@@ -77,7 +77,7 @@ You can find the web interface [here](https://dev7723.d2wnn0xh1kb5op.amplifyapp.
 
 ## Evaluation conducted since the 1st delivery:
 We performed the following evaluation:
-- we analyzed in more detail the performance and the energy consumption of our system;
+- we analyzed in more detail the energy consumption of our system;
 - we analyzed different possibilities for the sampling frequency and the radio usage, to choose the strategy that suits our application best;
 - we measured the sensors’ precision;
 - we conducted some tests to evaluate the accuracy of the system;
