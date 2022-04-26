@@ -88,6 +88,16 @@ We performed the following evaluation:
 - we briefly discussed network aspects of the system, such as network usage and latency.
 
 ## Next evaluation phase:
-We will focus more on energy consumption, which is a key aspect for our system. We will take more accurate measures using our prototype in different settings.
-<br> We will also evaluate different charging methods to find out if there exists a viable option.
+We will focus more on energy consumption, which is a key aspect for our system. We will take more accurate measures using our prototype in different settings. Specifically, we are going to measure the follwing parameters:
+- Energy consumption during wake-up time
+- Energy consumption to activate the sensors and compute the fill level
+- Energy consumption to transmit data using LoRa
+- Energy consumption during sleep mode
+- Energy consumption of the OLED display (to understand if it can be used in our system, given the battery constraints)
 
+We will also evaluate different charging methods to find out if there exists a viable option.
+
+Regarding the network we do have strict constraints given by the chosen technology. The main one is on the size of the packets but it does not affect our application. However, to confirm this statement we are going to measure:
+- Total size of LoRa packets
+- Total size of the payloads
+- Total latency from the beginning of the measuring phase to the update of the web dashboard
