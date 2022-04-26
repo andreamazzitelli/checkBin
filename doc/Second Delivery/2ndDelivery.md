@@ -35,11 +35,15 @@ Since the last delivery the following things were done:
 - we developed the web interface;
 
 ### Prototype Build:
-We used a different kind of bin from the one shown in the overview of the project. That is because of the unavailability of a standard garbage bin in this first development phase. However, the system we built is easily adaptable to different kinds of bins. We built the following prototype.
+We used a different kind of bin from the one shown in the overview of the project. That is because of the unavailability of a standard garbage bin in this first development phase. However, the system we built is easily adaptable to different kinds of bins. We built the following prototype:
 
-<img src="../../img/alfredo_1.jpg" width="500">
-<img src="../../img/alfredo_2.jpg" width="500">
-<img src="../../img/alfredo_3.jpg" width="500">
+<div>
+<img style="display: inline-block;" src="../../img/alfredo_1.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_2.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_5.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_3.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_4.jpg" width="300">
+</div>
 
 ### Code on the Board:
 Since the last delivery we wrote the necessary functions to:
@@ -84,6 +88,16 @@ We performed the following evaluation:
 - we briefly discussed network aspects of the system, such as network usage and latency.
 
 ## Next evaluation phase:
-We will focus more on energy consumption, which is a key aspect for our system. We will take more accurate measures using our prototype in different settings.
-<br> We will also evaluate different charging methods to find out if there exists a viable option.
+We will focus more on energy consumption, which is a key aspect for our system. We will take more accurate measures using our prototype in different settings. Specifically, we are going to measure the following parameters:
+- Energy consumption during wake-up time
+- Energy consumption to activate the sensors and compute the fill level
+- Energy consumption to transmit data using LoRa
+- Energy consumption during sleep mode
+- Energy consumption of the OLED display (to understand if it can be used in our system, given the battery constraints)
 
+We will also evaluate different charging methods to find out if there exists a viable option.
+
+Regarding the network we do have strict constraints given by the chosen technology. The main one is on the size of the packets but it does not affect our application. However, to confirm this statement we are going to measure:
+- Total size of LoRa packets
+- Total size of the payloads
+- Total latency from the beginning of the measuring phase to the update of the web dashboard
