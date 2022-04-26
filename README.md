@@ -23,7 +23,7 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 
 ## Videos:
 ### Second delivery:
-- [Technical presentation](https://youtu.be/)
+- [Technical details](https://youtu.be/)
 - [Evaluation](https://youtu.be/)
 - [Future plans](https://youtu.be/)
 ### First delivery:
