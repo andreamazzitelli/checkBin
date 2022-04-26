@@ -38,11 +38,11 @@ Since the last delivery the following things were done:
 We used a different kind of bin from the one shown in the overview of the project. That is because of the unavailability of a standard garbage bin in this first development phase. However, the system we built is easily adaptable to different kinds of bins. We built the following prototype.
 
 <div>
-<img style="display: inline-block;" src="../../img/alfredo_1.jpg" width="250">
-<img style="display: inline-block;" src="../../img/alfredo_2.jpg" width="250">
-<img style="display: inline-block;" src="../../img/alfredo_3.jpg" width="250">
-<img style="display: inline-block;" src="../../img/alfredo_4.jpg" width="250">
-<img style="display: inline-block;" src="../../img/alfredo_5.jpg" width="250">
+<img style="display: inline-block;" src="../../img/alfredo_1.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_2.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_5.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_3.jpg" width="300">
+<img style="display: inline-block;" src="../../img/alfredo_4.jpg" width="300">
 </div>
 
 ### Code on the Board:
