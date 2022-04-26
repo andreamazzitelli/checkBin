@@ -58,7 +58,7 @@ This architecture does not have any particular network constraint. As we planned
 
 The great number of bins dislocated throughout the city should be supported by the gateway infrastructure.
 
-The latency measured using the prototype from the sensing to the update of the web dashboard is less than 2 seconds, which is more than enough for our use case.
+The latency measured using the prototype from the sending to the update of the web dashboard is less than 2 seconds, which is more than enough for our use case.
 
 We’ll send to the cloud only the fill level of the bins and the bin identifier, so the bandwidth needed by each device is minimal. The size of the payload sent using LoRa to the cloud is less than 10bytes (1 for the fill level, 1 for the separator character and up to 8 for the bin identifier). To reduce the network usage we could also remove the bin identifier from the message, using the DEV_EUI assigned to the board as bin identifier.
 
