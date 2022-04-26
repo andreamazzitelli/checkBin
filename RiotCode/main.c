@@ -221,29 +221,7 @@ int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){ //LoRa setup
     join_type = LORAMAC_JOIN_OTAA;
 
     semtech_loramac_join(&loramac, join_type);
-    /*
-    switch (semtech_loramac_join(&loramac, join_type))
-    {
-    case SEMTECH_LORAMAC_DUTYCYCLE_RESTRICTED:
-        puts("Cannot join: dutycycle restriction");
-        return 1;
-    case SEMTECH_LORAMAC_BUSY:
-        puts("Cannot join: mac is busy");
-        return 1;
-    case SEMTECH_LORAMAC_JOIN_FAILED:
-        puts("Join procedure failed!");
-        return 1;
-    case SEMTECH_LORAMAC_ALREADY_JOINED:
-        puts("Warning: already joined!");
-        return 1;
-    case SEMTECH_LORAMAC_JOIN_SUCCEEDED:
-        puts("Join procedure succeeded!");
-        break;
-    default:
-        break;
-    }
-    puts("SetUp and Join Successful");
-    */
+
     return 0;
 }
 
@@ -255,32 +233,6 @@ int loramac_send(char *message){ //LoRa send
     semtech_loramac_set_tx_port(&loramac, port);
 
     semtech_loramac_send(&loramac,(uint8_t *)message, strlen(message));
-    
-    /*
-    switch (semtech_loramac_send(&loramac,(uint8_t *)message, strlen(message)))
-    {
-    case SEMTECH_LORAMAC_NOT_JOINED:
-        puts("Cannot send: not joined");
-        return 1;
-
-    case SEMTECH_LORAMAC_DUTYCYCLE_RESTRICTED:
-        puts("Cannot send: dutycycle restriction");
-        return 1;
-
-    case SEMTECH_LORAMAC_BUSY:
-        puts("Cannot send: MAC is busy");
-        return 1;
-
-    case SEMTECH_LORAMAC_TX_ERROR:
-        puts("Cannot send: error");
-        return 1;
-
-    case SEMTECH_LORAMAC_TX_CNF_FAILED:
-        puts("Fail to send: no ACK received");
-        return 1;
-    }
-    puts("Message Sent");
-    */
     
     return 0;
 }
