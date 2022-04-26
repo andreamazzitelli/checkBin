@@ -88,7 +88,7 @@ We performed the following evaluation:
 - we briefly discussed network aspects of the system, such as network usage and latency.
 
 ## Next evaluation phase:
-We will focus more on energy consumption, which is a key aspect for our system. We will take more accurate measures using our prototype in different settings. Specifically, we are going to measure the follwing parameters:
+We will focus more on energy consumption, which is a key aspect for our system. We will take more accurate measures using our prototype in different settings. Specifically, we are going to measure the following parameters:
 - Energy consumption during wake-up time
 - Energy consumption to activate the sensors and compute the fill level
 - Energy consumption to transmit data using LoRa
