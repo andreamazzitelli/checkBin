@@ -8,7 +8,7 @@ The computation is carried both on the edge and in the cloud. Every board will c
 
 <img src="../../img/binOverview_v2.png" width="500">
 
-Every smart bin will have an id code to be identified, which is also linked to its position. It will be equipped with:
+Every smart bin is equipped with:
 
 ***LoRaWAN compatible STM board***
 
@@ -49,6 +49,9 @@ The OLED Display will provide information about the fill level as feedback to th
 
 <img src="../../img/step_motor.jpg" width="200">
 
+### All the components are wired following the diagram below:
+
+<img src="../../img/circuit_v2.png" width="800">
 
 ## Logic
 The RIOT code implements the logical computation carried out in the LoRa board. In the main function it intializes the sensors, the actuators and the LoRa communication parameters.
