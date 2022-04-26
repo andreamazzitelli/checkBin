@@ -324,7 +324,7 @@ int main(void){
     int estimated_weight;
     float max_weight = AREA*MAX_DISTANCE*0.01*SW;
     int old_fill_level;
-    char st_fill[2];
+    char st_fill[10];
     char msg[8];
     int stepper_status=0; //0 open, 1 closed
 
@@ -365,8 +365,8 @@ int main(void){
                 set_stepper(-1);
                 stepper_status=0;
             }
-            sprintf(st_fill, "%d", 9);
-            loramac_send(BIN_ID+"|"+st_fill);
+            sprintf(st_fill, "%d|%d", BIN_ID, 9);
+            loramac_send(st_fill);
 
             sprintf(msg, "Fill level: %d", fill_level);
             write_oled(msg);
@@ -374,8 +374,8 @@ int main(void){
             puts("1. weight exceed but fill level low");
         }
         else if (old_fill_level!=fill_level){
-            sprintf(st_fill, "%d", fill_level);
-            loramac_send(BIN_ID+"|"+st_fill);
+            sprintf(st_fill, "%d|%d", BIN_ID, fill_level);
+            loramac_send(st_fill);
 
             sprintf(msg, "Fill level: %d", fill_level);
             write_oled(msg);
