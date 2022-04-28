@@ -70,7 +70,7 @@ function setMarkers(map, infoWindow, locations) {
         var date = new Date(parseInt(locations[i]['last_fill_timestamp']['S']) * 1000)
         var last_fill_level = locations[i]['last_fill_level']['N']
         var fill_level = parseFloat(locations[i]['last_fill_level']['N'])
-        var id = "id: "+locations[i]['id']['S'] + ' - fill level: ' + last_fill_level + ' at ' + date.toLocaleString()
+        var id = "id: "+locations[i]['id']['S'] + ' - fill level: ' + last_fill_level + ' - at: ' + date.toLocaleString()
 
         var image;
 
