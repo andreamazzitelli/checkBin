@@ -20,7 +20,7 @@ async function addBin(lat, lng) {
     var param = {
         method: 'POST',
         headers: {
-            'Accept': 'applicattion/json'
+            'Accept': 'application/json'
         },
         body: JSON.stringify(payload)
     }
