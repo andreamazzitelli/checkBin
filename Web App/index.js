@@ -70,14 +70,14 @@ function setMarkers(map, infoWindow, locations) {
         var date = new Date(parseInt(locations[i]['last_fill_timestamp']['S']) * 1000)
         var last_fill_level = locations[i]['last_fill_level']['N']
         var fill_level = parseFloat(locations[i]['last_fill_level']['N'])
-        var id = locations[i]['id']['S'] + ': ' + last_fill_level + '% at ' + date.toLocaleString()
+        var id = "id: "+locations[i]['id']['S'] + ' - fill level: ' + last_fill_level + ' at ' + date.toLocaleString()
 
         var image;
 
-        if (fill_level >= 80) {
+        if (fill_level >= 8) {
             image = red_pin
         }
-        else if (fill_level >= 50) {
+        else if (fill_level >= 5) {
             image = yellow_pin
         }
         else {
