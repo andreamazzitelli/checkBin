@@ -64,7 +64,7 @@
 #endif
 
 //ultrasonic sensor
-gpio_t trigger_pin = GPIO_PIN(PORT_A, 9); //D8 -> trigger
+gpio_t trigger_pin = GPIO_PIN(PORT_B, 6); //D10 -> trigger //was D8
 gpio_t echo_pin = GPIO_PIN(PORT_B, 12); //D9 -> echo
 uint32_t echo_time;
 uint32_t echo_time_start;
@@ -90,7 +90,7 @@ u8x8_riotos_t user_data =
     .pin_dc = TEST_PIN_DC,
     .pin_reset = TEST_PIN_RESET,
 };
-char fill_bar[15];
+char fill_bar[25];
 
 //button
 gpio_t pin_button = GPIO_PIN(PORT_A, 10); //D2
@@ -199,10 +199,12 @@ unsigned long read_weight(void){ //load cell
 void write_oled(char* message, int level){ //Display
     for (int i=2; i<12; i++){
         if (i-2<=level){
-            fill_bar[i]='|';
+            fill_bar[i*2-2]='|';
+            fill_bar[i*2-1]='|';
         }
         else{
-            fill_bar[i]='.';
+            fill_bar[i*2-2]='.';
+            fill_bar[i*2-1]='.';
         }
     }
     u8g2_FirstPage(&u8g2);
@@ -282,7 +284,7 @@ void components_init(void){ //initialize all pins and components
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
-    sprintf(fill_bar,"0 .......... 9");
+    sprintf(fill_bar,"0 .................... 9");
 
     gpio_init(pin_button, GPIO_IN);
     thread_create(stack, sizeof(stack),
