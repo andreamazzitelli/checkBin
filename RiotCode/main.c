@@ -13,6 +13,7 @@
 #include "ztimer.h"
 #include "u8g2.h"
 #include "u8x8_riotos.h"
+#include "thread.h"
 #include "main.h"
 
 #define CYCLE_TIMEOUT 5
@@ -88,6 +89,11 @@ u8x8_riotos_t user_data =
     .pin_dc = TEST_PIN_DC,
     .pin_reset = TEST_PIN_RESET,
 };
+char fill_bar[10];
+
+//button
+gpio_t pin_button = GPIO_PIN(PORT_A, 5); //D13
+char stack[THREAD_STACKSIZE_MAIN];
 
 //LoRa
 extern semtech_loramac_t loramac;
@@ -189,16 +195,34 @@ unsigned long read_weight(void){ //load cell
 }
 
 
-void write_oled(char* message){ //Display
-
+void write_oled(char* message, int level){ //Display
+    for (int i=0; i<10, i++){
+        if (i<=level){
+            fill_bar[i]='|';
+        }
+        else{
+            fill_bar[i]='.';
+        }
+    }
     u8g2_FirstPage(&u8g2);
-
     do {
         u8g2_SetDrawColor(&u8g2, 1);
         u8g2_SetFont(&u8g2, u8g2_font_helvB12_tf);
         u8g2_DrawStr(&u8g2, 12, 22, message);
+        u8g2_DrawStr(&u8g2, 24, 22, fill_bar);
     } while (u8g2_NextPage(&u8g2));
+}
 
+void *open_button(void *arg) {
+    (void) arg;
+    while(true){
+        if(gpio_read(pin_button)>0 && stepper_status==1){
+            set_stepper(-1);
+            stepper_status=0;
+        }
+        xtimer_msleep(200);
+    }
+    return NULL;
 }
 
 int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){ //LoRa setup
@@ -256,6 +280,13 @@ void components_init(void){ //initialize all pins and components
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
+
+    gpio_init(pin_button, GPIO_IN);
+    thread_create(stack, sizeof(stack),
+                    THREAD_PRIORITY_MAIN - 1,
+                    THREAD_CREATE_STACKTEST,
+                    open_button,
+                    NULL, "open_button");
 
     char *deveui = DEVEUI;
     char *appeui = APPEUI;
@@ -321,7 +352,7 @@ int main(void){
             loramac_send(st_fill);
 
             sprintf(msg, "Fill level: %d", fill_level);
-            write_oled(msg);
+            write_oled(msg, fill_level);
 
             puts("1. weight exceed but fill level low");
         }
@@ -330,7 +361,7 @@ int main(void){
             loramac_send(st_fill);
 
             sprintf(msg, "Fill level: %d", fill_level);
-            write_oled(msg);
+            write_oled(msg, fill_level);
 
             puts("2. fill level changed");
 
