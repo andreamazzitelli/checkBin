@@ -64,8 +64,8 @@
 #endif
 
 //ultrasonic sensor
-gpio_t trigger_pin = GPIO_PIN(PORT_A, 10); //D2 -> trigger //was D8
-gpio_t echo_pin = GPIO_PIN(PORT_B, 12); //D9 -> echo
+gpio_t trigger_pin = GPIO_PIN(PORT_A, 9); //D8 -> trigger
+gpio_t echo_pin = GPIO_PIN(PORT_A, 10); //D2 -> echo //was D9
 uint32_t echo_time;
 uint32_t echo_time_start;
 
@@ -93,7 +93,7 @@ u8x8_riotos_t user_data =
 char fill_bar[25];
 
 //button
-gpio_t pin_button = GPIO_PIN(PORT_A, 9); //D8
+gpio_t pin_button = GPIO_PIN(PORT_A, 5); //D13
 char stack[THREAD_STACKSIZE_MAIN];
 
 //LoRa
