@@ -89,7 +89,7 @@ u8x8_riotos_t user_data =
     .pin_dc = TEST_PIN_DC,
     .pin_reset = TEST_PIN_RESET,
 };
-char fill_bar[10];
+char fill_bar[15];
 
 //button
 gpio_t pin_button = GPIO_PIN(PORT_A, 5); //D13
@@ -196,8 +196,8 @@ unsigned long read_weight(void){ //load cell
 
 
 void write_oled(char* message, int level){ //Display
-    for (int i=0; i<10, i++){
-        if (i<=level){
+    for (int i=2; i<12, i++){
+        if (i-2<=level){
             fill_bar[i]='|';
         }
         else{
@@ -280,6 +280,7 @@ void components_init(void){ //initialize all pins and components
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
+    fill_bar="0 .......... 10"
 
     gpio_init(pin_button, GPIO_IN);
     thread_create(stack, sizeof(stack),
