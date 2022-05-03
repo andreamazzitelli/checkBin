@@ -93,7 +93,7 @@ u8x8_riotos_t user_data =
 char fill_bar[15];
 
 //button
-gpio_t pin_button = GPIO_PIN(PORT_A, 5); //D13
+gpio_t pin_button = GPIO_PIN(PORT_A, 10); //D2
 char stack[THREAD_STACKSIZE_MAIN];
 
 //LoRa
