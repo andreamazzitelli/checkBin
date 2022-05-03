@@ -78,6 +78,7 @@ gpio_t pin_step_1 = GPIO_PIN(PORT_B, 5); //D4 -> IN1
 gpio_t pin_step_2 = GPIO_PIN(PORT_B, 7); //D5 -> IN2
 gpio_t pin_step_3 = GPIO_PIN(PORT_B, 13); //D3 -> IN3
 gpio_t pin_step_4 = GPIO_PIN(PORT_A, 8); //D7 -> IN4
+int stepper_status;
 
 //display pin SDA D14 and SCK D15
 #define TEST_OUTPUT_I2C 4
@@ -196,7 +197,7 @@ unsigned long read_weight(void){ //load cell
 
 
 void write_oled(char* message, int level){ //Display
-    for (int i=2; i<12, i++){
+    for (int i=2; i<12; i++){
         if (i-2<=level){
             fill_bar[i]='|';
         }
@@ -209,7 +210,7 @@ void write_oled(char* message, int level){ //Display
         u8g2_SetDrawColor(&u8g2, 1);
         u8g2_SetFont(&u8g2, u8g2_font_helvB12_tf);
         u8g2_DrawStr(&u8g2, 12, 22, message);
-        u8g2_DrawStr(&u8g2, 24, 22, fill_bar);
+        u8g2_DrawStr(&u8g2, 12, 50, fill_bar);
     } while (u8g2_NextPage(&u8g2));
 }
 
@@ -274,13 +275,14 @@ void components_init(void){ //initialize all pins and components
     gpio_init(pin_step_2, GPIO_OUT);
     gpio_init(pin_step_3, GPIO_OUT);
     gpio_init(pin_step_4, GPIO_OUT);
+    stepper_status=0; //0 open, 1 closed
 
     TEST_DISPLAY(&u8g2, U8G2_R0, u8x8_byte_hw_i2c_riotos, u8x8_gpio_and_delay_riotos);
     u8g2_SetUserPtr(&u8g2, &user_data);
     u8g2_SetI2CAddress(&u8g2, TEST_ADDR);
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
-    fill_bar="0 .......... 10"
+    sprintf(fill_bar,"0 .......... 9");
 
     gpio_init(pin_button, GPIO_IN);
     thread_create(stack, sizeof(stack),
@@ -310,7 +312,6 @@ int main(void){
     int old_fill_level;
     char st_fill[10];
     char msg[8];
-    int stepper_status=0; //0 open, 1 closed
 
     while (true){
         distance=0;
