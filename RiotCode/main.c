@@ -153,7 +153,7 @@ void set_stepper(int flag){ //stepper motor
             break;
         } 
         steps=steps+flag;
-        xtimer_msleep(2);
+        xtimer_msleep(4);
         if (steps>3){
             steps=0;
         }
