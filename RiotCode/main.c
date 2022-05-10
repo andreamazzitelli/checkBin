@@ -43,9 +43,6 @@
 #define SW SW_MIXED
 #endif
 
-#ifndef BIN_ID
-#error "MISSING BIN ID"
-#endif
 #ifndef DEVEUI
 #error "MISSING LoRa DEVEUI"
 #endif
