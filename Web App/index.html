@@ -4,7 +4,8 @@
 
     <link rel="stylesheet" href="style.css">
     <script src="index.js"></script>
-    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/andreamazzitelli/checkBin/main/img/Logo_icon.png">
+    <link rel="icon" type="image/x-icon"
+        href="https://raw.githubusercontent.com/andreamazzitelli/checkBin/main/img/Logo_icon.png">
 
 </head>
 
@@ -47,23 +48,35 @@
     </div>
 
     <div id="form">
+        <div>
         <form>
+            <input type="text" placeholder="DevEUI" id="dev_eui">
+            <div></div>
             <input type="text" placeholder="Latitude" id="lat">
             <div></div>
             <input type="text" placeholder="Longitude" id="lng">
             <div></div>
             <button type="button"
-                onclick="addBin(document.getElementById('lat').value, document.getElementById('lng').value)">Add
+                onclick="addBin(document.getElementById('dev_eui').value, document.getElementById('lat').value, document.getElementById('lng').value)">Add
                 Bin</button>
         </form>
         <p id="show"></p>
+        </div>
+        <div>
+        <form style="margin: 0;">
+            <input type="text" placeholder="ID" id="bin_id">
+            <div></div>
+            <button type="button" onclick="deleteBin(document.getElementById('bin_id').value)">Delete Bin</button>
+        </form>
+        <p id="show2"></p>
         <p id="repo">
             GitHub Repository: <a href="https://github.com/andreamazzitelli/checkBin" target="_blank">checkBin</a>
         </p>
     </div>
+    </div>
 
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&v=weekly"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDXgY2z-Dh1dwapXH17_DzRpQ_YJxGM2jU&callback=initMap&v=weekly"
         defer></script>
 </body>
 

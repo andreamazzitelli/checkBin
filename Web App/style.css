@@ -73,3 +73,7 @@ button {
 #legend {
     border-bottom: 1px solid black;
 }
+
+#show {
+    height: 5px;
+}

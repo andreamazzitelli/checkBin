@@ -2,17 +2,20 @@ const red_pin = "https://github.com/andreamazzitelli/checkBin/blob/main/img/pins
 const yellow_pin = "https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/yellow-pin-small.png?raw=true";
 const green_pin = "https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/green-pin-small.png?raw=true";
 
-async function addBin(lat, lng) {
+async function addBin(dev_eui, lat, lng) {
 
+    dev_eui = dev_eui.replace(/\s+/g, '')
     lat = lat.replace(/\s+/g, '')
     lng = lng.replace(/\s+/g, '')
 
-    if (typeof (lat) == 'undefined' || typeof (lng) == 'undefined' || lat == null || lng == null || isNaN(lat) || isNaN(lng) || lat == "" || lng == "") {
+    //aggiungi test per hexadecimal
+    if (typeof (dev_eui) == 'undefined' || typeof (lat) == 'undefined' || typeof (lng) == 'undefined' || dev_eui == null || lat == null || lng == null || isNaN(lat) || isNaN(lng) || dev_eui == "" || lat == "" || lng == "") {
         alert("Insert Correct Coordinates");
         return
     }
 
     var payload = {
+        "dev_eui": dev_eui,
         "lat": lat,
         "lng": lng
     }
@@ -25,11 +28,22 @@ async function addBin(lat, lng) {
         body: JSON.stringify(payload)
     }
 
-    var result = await fetch("addBin Function URL", param)
-        .then(data => { return data.json() })
+    var result = await fetch("https://leqwxnlmrn2cr6rylzct7bkuha0qfsgf.lambda-url.us-east-1.on.aws/", param)
+        .then(data => {return data })
         .then(data => {
-            console.log(data)
-            console.log(data['id'])
+
+            if (data['status'] == "400") {
+                alert("DevEUI already in use");
+                return
+            }
+            return data.json()
+        })
+        .then(data => {
+
+            if (typeof (data) == 'undefined') {
+                return
+            }
+
             var new_marker = [{
                 'lat': {
                     'S': lat
@@ -50,10 +64,15 @@ async function addBin(lat, lng) {
             return new_marker
         })
         .then(data => {
-            console.log(data)
+            //console.log(data)
+
+            if (typeof (data) == 'undefined') {
+                return
+            }
             setMarkers(map, infoWindow, data);
+            document.getElementById('dev_eui').value = '';
             document.getElementById('lat').value = '';
-            document.getElementById('lng').value = ''
+            document.getElementById('lng').value = '';
             document.getElementById('show').innerHTML = 'Added Bin with ID: ' + data[0]['id']['S']
         })
 
@@ -67,10 +86,11 @@ function setMarkers(map, infoWindow, locations) {
             lat: parseFloat(locations[i]['lat']['S']),
             lng: parseFloat(locations[i]['lng']['S'])
         }
-        var date = new Date(parseInt(locations[i]['last_fill_timestamp']['S']) * 1000)
+
+        var date = new Date(parseInt(locations[i]['last_fill_timestamp']['S'])*1000)
         var last_fill_level = locations[i]['last_fill_level']['N']
         var fill_level = parseFloat(locations[i]['last_fill_level']['N'])
-        var id = "id: "+locations[i]['id']['S'] + ' - fill level: ' + last_fill_level + ' - at: ' + date.toLocaleString()
+        var id = "id: " + locations[i]['id']['S'] + ' - fill level: ' + last_fill_level + ' - at: ' + date.toLocaleString()
 
         var image;
 
@@ -95,26 +115,78 @@ function setMarkers(map, infoWindow, locations) {
 
         marker.addListener("click", () => {
             infoWindow.close();
-            console.log(marker.getTitle())
+            //console.log(marker.getTitle())
             infoWindow.setContent(marker.getTitle());
             infoWindow.open(marker.getMap(), marker);
         });
+
+        markers.push(marker)
     }
+
+
 }
+
+async function deleteBin(id) {
+
+    id = id.replace(/\s+/g, '')
+
+    if (typeof (id) == 'undefined' || id == null || isNaN(id) || id == "") {
+        alert("Insert Correct ID");
+        return
+    }
+
+    var string = "id: " + id;
+
+    var payload = {
+        "id": id
+    }
+
+    var param = {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify(payload)
+    }
+
+    var result = await fetch("https://64m2pkb43ny2mhxsz6ygtmm3ge0nkpeg.lambda-url.us-east-1.on.aws/", param)
+        .then(() => {
+            for (var i = 0; i < markers.length; i++) {
+                if (markers[i].title.search(string) != -1) {
+                    markers[i].setMap(null);
+                    markers.splice(markers.indexOf(markers[i]), 1)
+                }
+            }
+        })
+        .then(() => {
+            document.getElementById('bin_id').value = ''
+            document.getElementById('show2').innerHTML = 'Deleted Bin with ID: ' + id
+        })
+
+}
+
 
 // Initialize and add the map
 async function initMap() {
     // The map, centered at the location
     const center_position = { lat: 41.914718666319914, lng: 12.523279060428838 };
+    markers = []
     infoWindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
         zoom: 10,
         center: center_position,
+        styles: [   //needed to remove the points of interests 
+            {
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [{ visibility: "off" }]
+            }
+        ]
     });
 
     var locations = []
 
-    var result = await fetch("getBins Function URL")
+    var result = await fetch("https://slfosy6btrlq2u2xufldfoy5fi0reboc.lambda-url.us-east-1.on.aws/")
         .then(data => { return data.json(); })
         .then(data => {
             data.forEach(el => {
@@ -122,9 +194,14 @@ async function initMap() {
             })
         })
 
-    console.log(locations)
+    //console.log(locations)
     setMarkers(map, infoWindow, locations)
+
 }
 var map;
+var markers = [];
 var infoWindow;
-window.initMap = initMap;
+
+// setTimeout(function(){
+//     window.location.reload(1);
+// }, 10000)
