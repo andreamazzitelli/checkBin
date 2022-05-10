@@ -17,8 +17,6 @@ void components_init(void);
 #define DEVEUI "70B3D57ED004E9C9"
 #define APPEUI "0000000000000000"
 #define APPKEY "ACF56E9005262992A0D06E5C42192FD7"
-//define bin id
-#define BIN_ID 14
 //define bin height
 #define MAX_DISTANCE 45
 //define area in square meters
