@@ -56,7 +56,7 @@ The OLED Display will provide information about the fill level as feedback to th
 
 ### All the components are wired following the diagram below:
 
-<img src="../../img/circuit_v2.png" width="800">
+<img src="../../img/circuit_v3.png" width="800">
 
 ## Logic
 The RIOT code implements the logical computation carried out in the LoRa board. In the main function it initializes the sensors, the actuators and the LoRa communication parameters.
