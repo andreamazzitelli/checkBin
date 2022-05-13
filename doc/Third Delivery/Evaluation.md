@@ -155,7 +155,7 @@ We used IoTLAB and created an experiment reserving 12 boards b-l072z-lrwan1 on t
 
 <img style="display: inline-block;" src="../../img/iotlab_sim.png" width="700">
 
-We wrote some RIOT OS code to connect to the LoRa gateway, repeatedly generate random fill levels and send them to the cloud. This code was compiled and flashed on every board, using different DevEUI, AppKey and AppEUI which were linked to different bin entities in the database. The experiment ran smoothly to prove our system was capable of supporting more devices.
+We wrote some RIOT OS code to connect to the LoRa gateway, repeatedly generate random fill levels and send them to the cloud. This code was compiled and flashed on every board, using different DevEUI, AppKey and AppEUI which were linked to different bin entities in the database. The experiment ran smoothly to prove our system was capable of supporting more devices. You can find the code inside the folder "SimulationCode" of this repository.
 
 Here you can see an extract of the recorded experiment:
 
