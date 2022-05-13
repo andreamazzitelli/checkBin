@@ -30,9 +30,8 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 
 ## Videos:
 ### Third delivery:
-- [Technical details]()
-- [Evaluation]()
-- [Future plans]()
+- [Presentation of the project]()
+- [Demonstration of the project]()
 ### Second delivery:
 - [Technical details](https://youtu.be/C8MtbwdandU)
 - [Evaluation](https://www.youtube.com/watch?v=46vqiiF-4S0)
