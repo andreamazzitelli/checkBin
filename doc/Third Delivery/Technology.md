@@ -161,7 +161,7 @@ All the data stored in the database can also be reached via a REST API, to ease 
 ## Future plans for technology improvements:
 
 ### Edge computing
-We could use the edge to run a machine learning algorithm which learn and adjust some relevant parameters like: the interval between measurements or the specific weights of every waste type.
+We could use the edge to run a machine learning algorithm which learn and adjust some relevant parameters like the interval between measurements or the specific weights of every waste type.
 Both these algorithms could be implemented in different ways:
 - using all global data coming from every bin, in this case gateways should be orchestrated to learn the global parameters. This option is the best one to learn the specific weights of waste.
 - using all data received by a single gateway, in this way we would have neighbourhood specific parameters.
