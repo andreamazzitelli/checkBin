@@ -116,4 +116,27 @@ We’ll send to the cloud only the fill level of the bins and the bin identifier
 
 We plan to test the whole system using a simulated environment provided by IoT_LAB. In this way we will also analyze the scalability of our system.
 
+
+## Scalability
+
+To be sure our system would work in the real world environment, we also tested its scalability. We chose a block in our city and created an entity in the database for each of the bins:
+
+<div>
+<img style="display: inline-block;" src="../../img/map1.png" height="300">
+<img style="display: inline-block;" src="../../img/map2.png" height="300">
+</div>
+
+We used IoTLAB and created an experiment reserving 12 boards b-l072z-lrwan1 on the Saclay site. 
+
+<img style="display: inline-block;" src="../../img/iotlab_sim.png" width="700">
+
+We wrote some RIOT OS code to connect to the LoRa gateway, repeatedly generate random fill levels and send them to the cloud. This code was compiled and flashed on every board, using different DevEUI, AppKey and AppEUI which were linked to different bin entities in the database. The experiment ran smoothly to prove our system was capable of supporting more devices.
+
+Here you can see an extract of the recorded experiment:
+
+<img src="../../img/scalability.gif" width="800">
+
+From this experiment we realized we cannot use the WebSocket technology to update the dashboard every time a bin sends its fill level. Due to the high number of bins, the web dashboard could not keep up with all the updates and kept refreshing. Moreover we realized that the cloud would have had to send a high number of messages to every open dashboard. Analyzing our application, we realized that there is no need for such a feature. Indeed, the latency from the change in the fill level to the update on the cloud can be up to 1 hour. So there is no reason to implement a low latency mechanism in the dashboard. In the end we decided to force the web interface to update every 10 minute, so as not to overload the cloud with requests.
+
+
 ### Link to previous version: [Evaluation - Second delivery](../Second%20Delivery/Evaluation.md)
