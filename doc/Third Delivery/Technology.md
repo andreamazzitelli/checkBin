@@ -182,6 +182,8 @@ Taking into account the update frequency of the display in our system, the e-ink
 ### Charging methods
 We could add a solar panel to reduce the size of the needed battery and increase the lifetime. We would not have any problem finding the space to add the panel due to the size of standard bins. More details in the evaluation document.
 
+<img src="../../img/solar_panel.jpg" width="200">
+
 A different option would be using the energy provided by users pressing on the pedal to open the bin. This mechanical energy could be converted into electric energy using a dynamo. However, even if the frequency of this action is considerably high, the energy produced every time would not be able to support the consumption of the whole system.
 
 
