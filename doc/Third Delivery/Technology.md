@@ -115,6 +115,8 @@ The security aspect is fulfilled by LoRa protocol which uses a double encryption
 
 <img src="../../img/lora_security2.png" width="700">
 
+*credits: https://riot-os.github.io/riot-course/slides/05-lorawan-with-riot/#12*
+
 We ruled out every kind of communication directed to the board as it would need the radio always on. We couldn’t afford that in developing a battery powered device that needs to be up for at least a year without a constant power supply.
 <br> We also considered structuring the network as a mesh to avoid the need of developing a gateway infrastructure. However, this approach would also require the radio to be always on but, as stated before, we cannot afford that.
 <br> Different solutions must be researched to have a gateway infrastructure available. The garbage pickup company could develop its own infrastructure or it could use an existing infrastructure provided by some third party.
