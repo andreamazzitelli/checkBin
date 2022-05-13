@@ -161,7 +161,7 @@ All the data stored in the database can also be reached via a REST API, to ease 
 ## Future plans for technology improvements:
 
 ### Edge computing
-We could use edge computing to run a machine learning algorithm which learn and adjust the interval between measurements. We could also use it to learn the specific weights of every waste type.
+We could use the edge to run a machine learning algorithm which learn and adjust the interval between measurements. We could also use it to learn the specific weights of every waste type.
 Both these algorithms could be implemented in different ways:
 - using all global data coming from every bin, in this case gateways should be orchestrated to learn the global parameters. This option is the best one to learn the specific weights of waste.
 - using all data received by a single gateway, in this way we would have neighbourhood specific parameters.
@@ -173,8 +173,8 @@ To achieve the proposed goals, edge computing would be the best option because t
 
 <img src="../../img/eink.jpg" width="200">
 
-To further reduce the energy consumption we could replace the OLED with a e-ink display. This kind of displays consumes a relevant amount of energy only when the values are updated. During standby their energy consumption is negligible.
-Taking into account the update frequency of the display in our system, the e-ink option would be more appropriate.
+To further reduce the energy consumption we could replace the OLED with a e-ink display. This kind of displays consumes a relevant amount of energy only when the values are updated. Indeed, during standby their energy consumption is negligible.
+Taking into account the update frequency of the display in our system, the e-ink option could be more appropriate.
 
 ### Charging methods
 We could add a solar panel to reduce the size of the needed battery and increase the lifetime. We would not have any problem finding the space to add the panel due to the size of standard bins. More details in the evaluation document.
