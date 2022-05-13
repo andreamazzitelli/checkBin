@@ -1,3 +1,5 @@
+# EVALUATION
+
 ## Energy Consumption
 A major constraint that we have is energy consumption. We want the battery to last for at least a year. Anyway, given the size of standard city bins, we are not too concerned about the size of the battery. During the next development phase we’ll also choose if we need to add some kind of solar cell or other type of charging methods. As an example we could experiment with some kind of fast charge while the trucks unload the bins.
 - The OLED screen will be always on and will be updated at every change of the fill level.
