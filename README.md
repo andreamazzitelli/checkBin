@@ -43,4 +43,4 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 - [Evaluation](https://youtu.be/skyZr8n79Us)
 
 ## Blogpost:
-[Link to hackster](https://www.hackster.io/)
+- [Link to hackster](https://www.hackster.io/)
