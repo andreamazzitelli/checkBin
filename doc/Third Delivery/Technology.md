@@ -170,6 +170,9 @@ Both these algorithms could be implemented in different ways:
 To achieve the proposed goals, edge computing would be the best option because the boards do not have enough computational power or energy to run complex algorithms. Moreover the gateways already have the necessary data and can communicate with the boards to send the new parameters.
 
 ### Replacing the OLED with a e-ink display
+
+<img src="../../img/eink.jpg" width="200">
+
 To further reduce the energy consumption we could replace the OLED with a e-ink display. This kind of displays consumes a relevant amount of energy only when the values are updated. During standby their energy consumption is negligible.
 Taking into account the update frequency of the display in our system, the e-ink option would be more appropriate.
 
