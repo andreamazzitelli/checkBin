@@ -39,7 +39,7 @@ The second aspect that has a great impact on the consumption of energy is how of
 
 The antenna will be also activated when an anomaly is detected between the fill level measure taken by the ultrasonic and the weight measured by the load cell. In that case it will be used to notify the anomaly, sending the max fill level to the cloud to notify the bin must be emptied.
 
-In conclusion we chose to sense every hour and to send data every time there is a change in the fill level of the bin or there is an anomaly. In this way we can also be compliant with the LoRa duty cycle restrictions and with the requirements about the latency between the change in the fill level and the result visualized in the dashboard.
+In conclusion we chose to sense every hour and to send data every time there is a change in the fill level of the bin or there is an anomaly. In this way we can also be compliant with the LoRa duty cycle restrictions (in Europe they are regulated by the ETSI EN300.220 standard) and with the requirements about the latency between the change in the fill level and the result visualized in the dashboard.
 
 ### Measured energy consumption
 We used a multimeter and a [INA219](https://cdn-learn.adafruit.com/downloads/pdf/adafruit-ina219-current-sensor-breakout.pdf) to measure the energy consumption of our system.
@@ -108,16 +108,39 @@ Accuracy of the fill level: 92.5%. We expect the accuracy to rise with a greater
 
 ## Network usage
 
-This architecture does not have any particular network constraint. As we planned to send data to the cloud only when the fill level changes or if there is an anomaly, the board should send around 10 messages every interval between two bin unloadings. This choice has been made considering the nature of the system which does not need real time updates.
+This architecture does not have any particular network constraint. As we planned to send data to the cloud only when the fill level changes or if there is an anomaly, the board should send around 10 messages every interval between two bin unloadings. This choice has been made considering the nature of the system which does not need real time updates. However, we must take into account that the great number of bins dislocated throughout the city should be supported by the gateway infrastructure.
 
-The great number of bins dislocated throughout the city should be supported by the gateway infrastructure.
+### Considerations on Packets and Payload Size
+Taking into account our implementation, we sent a LoRa message with a payload of 1 byte. Considering that a LoRa packet uses 13 bytes as header (according to the Specification 1.0.2 we are using), the total packet size is 14 bytes. Knowing that the Spreading Factor is 7, the Region is EU868 and the Bandwidth is 125kHz. Using these information and the calculator provided by The Things Network itself (you can find it [here](https://www.thethingsnetwork.org/airtime-calculator)) we obtained that the Time on Air of a packet is 43.6 ms. This is a small time period, at least with respect to the intervals we consider in our project (a bin takes measures once every hour). 
 
-The latency measured using the prototype from the sending to the update of the web dashboard is less than 2 seconds, which is more than enough for our use case.
+At the beginning of the project we considered sending packets with bigger payloads of 7 bytes, in this way we could also send the bin’s ID in the message. Even if the time on air would have had only a slight increase going up to 56.6 ms, a time period admissible for our situation, we opted for sending only a single byte representing the fill level. This choice was made because there is no reason to send the bin’s ID to the cloud. Indeed, the data is processed using the DevEUI, not the ID, and this information is already present in the packet by default.
 
-We’ll send to the cloud only the fill level of the bins and the bin identifier, so the bandwidth needed by each device is minimal. The size of the payload sent using LoRa to the cloud is less than 10bytes (1 for the fill level, 1 for the separator character and up to 8 for the bin identifier). To reduce the network usage we could also remove the bin identifier from the message, using the DEV_EUI assigned to the board as bin identifier.
+### Considerations on Latency
+In our use case it does not make much sense to talk about latency of the whole system, in particular if we consider that the measurement interval in a bin may be governed by a model computed using machine learning.
 
-We plan to test the whole system using a simulated environment provided by IoT_LAB. In this way we will also analyze the scalability of our system.
+Instead a more relevant aspect to consider is the latency between the moment the board starts measuring and the time when the data are available to the end user. This time interval is composed of three parts:
 
+- Time on the Board (T<sub>Board</sub>): time needed to compute the fill level and send the message; 
+- Time on Air (T<sub>Air</sub>): time needed for the message to go from the board to the LoRa gateway;
+- Time for Cloud Processing (T<sub>Cloud</sub>): time needed on the cloud to process the data (we also include the time needed by TTN to send the message to AWS IoT Core). 
+
+More in details we have that: 
+
+- T<sub>Board</sub> = T<sub>Ultrasonic</sub> + T<sub>Logic</sub> where T<sub>Ultrasonic</sub> is the time needed to perform the ultrasonics measures and T<sub>Logic</sub> is the time needed to perform the computation of the fill level and send the message.
+
+In our case we have that:
+
+- T<sub>Ultrasonic</sub> = 60s because the systems performs 3 measurements (one every 30 seconds) so we have them at t=0, t=30s, t=60s;
+- T<sub>Logic</sub> = 0.05s empirical data tells us that the board does not take more that 50ms to compute the fill level and send it;
+- T<sub>Air</sub> = 0.05s using The Things Network calculator we know that in theory the time on air is 43.6ms, to cope for some eventual delay we assumed 0.05s;
+- T<sub>Cloud</sub> = 2s clearly we do not have any control over this aspect but empirical data tells us that it does not take more than 2s.
+
+Said this we have that 
+- T<sub>Board</sub> + T<sub>Air</sub> + T<sub>Cloud</sub> = T<sub>Ultrasonic</sub> + T<sub>Logic</sub> + T<sub>Air</sub> + T<sub>Cloud</sub> = 60 + 0.05 + 0.05 + 2 = 62.1s &#8771; 62s
+
+This can be graphically seen in the image below:
+
+<img src="../../img/TimeLine.png" width="700">
 
 ## Scalability
 
