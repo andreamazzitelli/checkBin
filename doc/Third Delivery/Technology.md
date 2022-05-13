@@ -167,7 +167,7 @@ For both aspects we can consider different possibilities:
 - using all data received by a single gateway, in this way we would have neighbourhood specific parameters.
 - using data coming from a single bin, in this way we would have specific parameters for every bin. This option is the best one to learn the interval between measurements. Indeed, regarding the fill rate and frequency of waste deliveries, each bin is mostly different from the others.
 
-To achieve the proposed goals, edge computing is the best option because the boards do not have enough computational power or energy to run complex algorithms. Moreover the gateways already have the necessary data and can communicate with the boards to send the new parameters. Regarding a possible usage of the cloud, the measure interval is a parameter strictly related to a bin and it would not make sense sending parameters to the cloud to compute.
+To achieve the proposed goals, edge computing is the best option because the boards do not have enough computational power or energy to run complex algorithms. Moreover the gateways already have the necessary data and can communicate with the boards to send the new parameters. Regarding a possible usage of the cloud, the measure interval is a parameter strictly related to a bin and it would not make sense sending parameters to the cloud to compute as there's no need to aggregate data.
 
 ### Replacing the OLED with a e-ink display
 
