@@ -6,7 +6,7 @@
 - The system must be energy independent for at least a year;
 - The capacity of the bin must not be reduced by more than 5% (both in weight and volume);
 - The system must be compliant with the LoRa duty cycle restrictions;
-- The ratio of wrong fill level measurments over total fill level measurements must be < 5%.
+- The ratio of wrong fill level measurements over total fill level measurements must be < 5%.
 
 *These requirements were set making reasonable assumptions on the observed real world.*
 
@@ -17,7 +17,7 @@ A major constraint that we have is energy consumption. We want the system to be 
 - The sensors will be activated at the predefined intervals. The ultrasonic sensor will take three measures with a 30 seconds interval, to discard eventual measures taken while the bin was open. The load cell will also be activated to read a value.
 
 ### Replacing the OLED with a e-ink display
-To further reduce the energy consumption we could replace the OLED with a e-ink display. Taking as an example the display 1.54inch e-Paper V2 - [WSH-12561](https://www.tme.eu/Document/0ca57a8ffbcd57b5bca53252eb9d6ec3/WSH-12561.pdf), we have that it consumes 0.005mA in standby and 8mA during the update phase. Considering a maximum of 10 updates every day, this display would consume roughly 0.16mAh per day which is extremely less than the 54mAh needed by the Oled display.
+To further reduce the energy consumption we could replace the OLED with an e-ink display. Taking as an example the display 1.54inch e-Paper V2 - [WSH-12561](https://www.tme.eu/Document/0ca57a8ffbcd57b5bca53252eb9d6ec3/WSH-12561.pdf), we have that it consumes 0.005mA in standby and 8mA during the update phase. Considering a maximum of 10 updates every day, this display would consume roughly 0.16mAh per day which is extremely less than the 54mAh needed by the Oled display.
 
 ### Analysis on sampling frequency
 One of the key aspects of the project is how often the sampling is done. Indeed, there are several possibilities:
@@ -50,7 +50,7 @@ We used a multimeter and a [INA219](https://cdn-learn.adafruit.com/downloads/pdf
 - \+ 34.5mA Energy consumption to transmit data using LoRa (total 88.8mA)
 - \+ 90.7mA Energy consumption of the Stepper (total 145mA)
 
-The measured comsumption can be visualized in the following plot:
+The measured consumption can be visualized in the following plot:
 
 <img src="../../img/energy_consumption.png" width="700">
 
