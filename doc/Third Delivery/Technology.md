@@ -163,9 +163,9 @@ All the data stored in the database can also be reached via a REST API, to ease 
 ### Edge computing
 We could use the edge to run a machine learning algorithm which learn and adjust some relevant parameters like the interval between measurements or the specific weights of every waste type.
 For both aspects we can consider different possibilities:
-- using all global data coming from every bin, in this case gateways should be orchestrated to learn the global parameters. This option is the best one to learn the specific weights of waste.
+- using all global data coming from every bin, in this case gateways should be orchestrated to learn the global parameters. This option is the best one to learn the specific weights of waste types. Due to the facts that these parameters do not differs much among bins, using a global algorithm would allow us to have a bigger dataset that increases the accuracy of the model and produces better results.
 - using all data received by a single gateway, in this way we would have neighbourhood specific parameters.
-- using data coming from a single bin, in this way we would have specific parameters for every bin. This option is the best one to learn the interval between measurements.
+- using data coming from a single bin, in this way we would have specific parameters for every bin. This option is the best one to learn the interval between measurements. Indeed, regarding the fill rate and frequency of waste deliveries, each bin is mostly different from the others.
 
 To achieve the proposed goals, edge computing would be the best option because the boards do not have enough computational power or energy to run complex algorithms. Moreover the gateways already have the necessary data and can communicate with the boards to send the new parameters.
 
