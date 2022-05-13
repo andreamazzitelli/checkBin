@@ -14,6 +14,10 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 <img src="img/alfredo_0.jpg" width="400">
 
 ## Documents:
+### Third delivery:
+- [Concept](/doc/Third%20Delivery/Concept.md)
+- [Technology](/doc/Third%20Delivery/Technology.md)
+- [Evaluation](/doc/Third%20Delivery/Evaluation.md)
 ### Second delivery:
 - [2nd Delivery](/doc/Second%20Delivery/2ndDelivery.md)
 - [Concept](/doc/Second%20Delivery/Concept.md)
@@ -25,6 +29,10 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 - [Evaluation](/doc/First%20Delivery/Evaluation.md)
 
 ## Videos:
+### Third delivery:
+- [Technical details]()
+- [Evaluation]()
+- [Future plans]()
 ### Second delivery:
 - [Technical details](https://youtu.be/C8MtbwdandU)
 - [Evaluation](https://www.youtube.com/watch?v=46vqiiF-4S0)
