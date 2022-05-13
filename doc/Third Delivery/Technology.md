@@ -155,6 +155,8 @@ In particular, the js code does the following:
 - once the data arrives, for every bin the script adds a clickable marker containing all the info about the bin with a different color depending on the fill level;
 - every 10 minutes the dashboards reloads, we chose not to update it in real time using websockets due to scalability concerns.
 
+The web dashboard can be accessed [here](https://dev7723.d2wnn0xh1kb5op.amplifyapp.com/).
+
 From the web interface the user can also add a new bin to the system by filling the latitude and longitude fields and clicking on the “Add Bin” button. It calls the function URL of the “addBin_v2” Lambda Function that creates a new tuple in “binTable” and returns to the user the new bin id.
 
 Moreover the user can delete a bin from the system by inserting the id in the corresponding field and then clicking on the “Delete Bin” button. In this way the Lambda function “deleteBin” is called and the tuple associated with the specified bin’s id is deleted from the DB.
