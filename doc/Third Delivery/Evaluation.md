@@ -6,7 +6,8 @@
 - The system must be energy independent for at least a year;
 - The capacity of the bin must not be reduced by more than 5% (both in weight and volume);
 - The system must be compliant with the LoRa duty cycle restrictions;
-- The ratio of wrong fill level measurements over total fill level measurements must be < 5%.
+- The ratio of wrong fill level measurements over total fill level measurements must be < 5%;
+- The system must be able to scale up.
 
 *These requirements were set making reasonable assumptions on the observed real world.*
 
