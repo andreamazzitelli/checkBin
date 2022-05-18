@@ -14,7 +14,7 @@ Today a big issue in many cities is garbage management, not only from an aesthet
 <img src="img/alfredo_0.jpg" width="400">
 
 ## Blogpost:
-- [Link to hackster](https://www.hackster.io/)
+- [Link to hackster](https://www.hackster.io/463097/checkbin-439d2e)
 
 ## Documents:
 ### Third delivery:
