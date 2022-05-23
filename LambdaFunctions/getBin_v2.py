@@ -10,6 +10,7 @@ def lambda_handler(event, context):
         TableName='binTable',
     )
     
+    #return status code 200 witho correct body
     return {
         'statusCode': 200,
         'body': json.dumps(data["Items"])
