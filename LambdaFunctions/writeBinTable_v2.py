@@ -57,6 +57,7 @@ def lambda_handler(event, context):
         
     )
     
+    #return status code 200
     return {
         'statusCode': 200
     }
