@@ -6,6 +6,7 @@ def lambda_handler(event, context):
     
     dynamodb = boto3.client('dynamodb')
     
+    #parse body
     body = json.loads(event['body'])
     
     #extracting the DevEUI from the ID
@@ -34,6 +35,7 @@ def lambda_handler(event, context):
         }
     )
     
+    #return code 200
     return {
         'statusCode': 200,
     }
