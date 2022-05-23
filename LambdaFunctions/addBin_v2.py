@@ -5,9 +5,10 @@ import time
 client=boto3.client('dynamodb')
 
 def lambda_handler(event, context):
-    
+    #parse body
     body = json.loads(event['body'])
-
+    
+    #scan table
     data = client.scan(
         TableName='binTable',
     )
@@ -47,7 +48,8 @@ def lambda_handler(event, context):
         ReturnConsumedCapacity='TOTAL',
         TableName='binTable',
         )
-
+    
+    #return status 200 with correct body
     return {
         'statusCode': 200,
         "headers": {
