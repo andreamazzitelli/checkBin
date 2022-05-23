@@ -1,3 +1,4 @@
+//including needed libraries
 #include <stdio.h>
 #include <string.h>
 
@@ -13,6 +14,7 @@
 #define MIN 0
 extern semtech_loramac_t loramac;
 
+//Utility Functions for lora
 int loramac_setup(char *deui, char *aeui, char *akey, char *xdr){
     uint8_t deveui[LORAMAC_DEVEUI_LEN];
     uint8_t appeui[LORAMAC_APPEUI_LEN];
@@ -95,6 +97,7 @@ int loramac_send(char *message)
     return 0;
 }
 
+//function that randomly generates fill_level
 int fill_level_generator(int previous){        
         
         if(previous == 9){
@@ -117,6 +120,7 @@ int fill_level_generator(int previous){
 
 int main(void){
 
+//set up lora parameters
     char *deveui = "0000000000000000";
     char *appeui = "0000000000000000";
     char *appkey = "00000000000000000000000000000000";
@@ -128,7 +132,8 @@ int main(void){
    char msg[10];
    char *m = msg;
 
-   random_init(1);
+   random_init(1); //RNG initialization
+   //loop that keep generating random fill_levels
    while(1){
 	printf("BEFORE\n");
 	previous = fill_level_generator(previous);
