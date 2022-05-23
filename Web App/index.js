@@ -1,14 +1,15 @@
+//static images for markers
 const red_pin = "https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/red-pin-small.png?raw=true";
 const yellow_pin = "https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/yellow-pin-small.png?raw=true";
 const green_pin = "https://github.com/andreamazzitelli/checkBin/blob/main/img/pins/green-pin-small.png?raw=true";
 
+//add bin to table with specified dev_eui and coordinates
 async function addBin(dev_eui, lat, lng) {
 
     dev_eui = dev_eui.replace(/\s+/g, '')
     lat = lat.replace(/\s+/g, '')
     lng = lng.replace(/\s+/g, '')
 
-    //aggiungi test per hexadecimal
     if (typeof (dev_eui) == 'undefined' || typeof (lat) == 'undefined' || typeof (lng) == 'undefined' || dev_eui == null || lat == null || lng == null || isNaN(lat) || isNaN(lng) || dev_eui == "" || lat == "" || lng == "") {
         alert("Insert Correct Coordinates");
         return
@@ -78,6 +79,7 @@ async function addBin(dev_eui, lat, lng) {
 
 }
 
+//set marker on the map
 function setMarkers(map, infoWindow, locations) {
 
     for (var i = 0; i < locations.length; i++) {
@@ -126,6 +128,7 @@ function setMarkers(map, infoWindow, locations) {
 
 }
 
+//function to delete bin given it's id
 async function deleteBin(id) {
 
     id = id.replace(/\s+/g, '')
@@ -202,6 +205,7 @@ var map;
 var markers = [];
 var infoWindow;
 
+//code to automatically reload the page, for now is commented to avoid to many calls
 // setTimeout(function(){
 //     window.location.reload(1);
 // }, 10000)
