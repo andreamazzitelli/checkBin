@@ -15,7 +15,7 @@
 #include "u8x8_riotos.h"
 #include "main.h"
 
-#define CYCLE_TIMEOUT 5
+#define CYCLE_TIMEOUT 1
 #define MEASURE_TIMEOUT 2
 #define ZERO_LOAD_CELL 8498
 
@@ -23,7 +23,7 @@
 #define SW_PLASTIC 25000
 #define SW_METAL 100000
 #define SW_GLASS 200000
-#define SW_PAPER 200000
+#define SW_PAPER 30000
 #define SW_FOOD 250000
 #define SW_MIXED 85000
 
